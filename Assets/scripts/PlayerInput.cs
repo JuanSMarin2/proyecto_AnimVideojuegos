@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 namespace Assets.scripts
 {
@@ -10,7 +6,10 @@ namespace Assets.scripts
     {
         public float GetSpeedInput()
         {
-            throw new System.NotImplementedException();
+            return new Vector2(
+                UnityEngine.Input.GetAxis("Horizontal"),
+                UnityEngine.Input.GetAxis("Vertical")
+            ).magnitude;
         }
     }
 }
