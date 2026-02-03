@@ -103,4 +103,4 @@
 *.prefab     -filter -diff -merge text eol=lf
 *.unity      -filter -diff -merge text eol=lf
 *.asset      -filter -diff -merge text eol=lf
-*.meta       -filter -diff -me*
+*.meta       -filter -diff -merge text eol=lf
