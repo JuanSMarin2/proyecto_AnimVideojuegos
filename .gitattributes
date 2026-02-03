@@ -1,6 +1,10 @@
-# Unity + Git LFS configuration
+# ======================================================
+# Unity + Git LFS configuration (SAFE FOR .anim FILES)
+# ======================================================
 
+# ------------------------------------------------------
 # 1) Large binary assets tracked by LFS
+# ------------------------------------------------------
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.psb filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
@@ -58,43 +62,45 @@
 *.woff filter=lfs diff=lfs merge=lfs -text
 *.woff2 filter=lfs diff=lfs merge=lfs -text
 
-# Archives and packages
+# Archives
 *.unitypackage filter=lfs diff=lfs merge=lfs -text
 
 # Binaries
 *.dll filter=lfs diff=lfs merge=lfs -text
 
-# 2) Unity text-based assets (keep as text, no LFS)
-*.cs text
-*.shader text
-*.cginc text
-*.compute text
-*.json text
-*.xml text
-*.yaml text
-*.yml text
-*.svg text
 
-# Unity YAML assets
-*.unity text
-*.prefab text
-*.mat text
-*.anim text
-*.controller text
-*.asset text
-*.asmdef text
-*.asmref text
-*.physicMaterial text
-*.inputactions text
-*.meta text
+# ------------------------------------------------------
+# 2) Unity TEXT assets (FORCED text, NEVER LFS)
+# ------------------------------------------------------
+*.cs              text eol=lf
+*.shader          text eol=lf
+*.cginc           text eol=lf
+*.compute         text eol=lf
+*.json            text eol=lf
+*.xml             text eol=lf
+*.yaml            text eol=lf
+*.yml             text eol=lf
+*.svg             text eol=lf
 
-# Misc text
-*.txt text
-*.md text
-*.csv text
-*.tsv text
-*.ini text
-*.prop text
-*.properties text
-*.gradle text
-*.plist text
+# Unity YAML assets (CRITICAL)
+*.unity           text eol=lf
+*.prefab          text eol=lf
+*.mat             text eol=lf
+*.anim            text eol=lf
+*.controller      text eol=lf
+*.asset           text eol=lf
+*.asmdef          text eol=lf
+*.asmref          text eol=lf
+*.physicMaterial  text eol=lf
+*.inputactions    text eol=lf
+*.meta            text eol=lf
+
+# ------------------------------------------------------
+# 3) Explicit LFS override (ANTI-CORRUPTION SHIELD)
+# ------------------------------------------------------
+*.anim        -filter -diff -merge text eol=lf
+*.controller  -filter -diff -merge text eol=lf
+*.prefab     -filter -diff -merge text eol=lf
+*.unity      -filter -diff -merge text eol=lf
+*.asset      -filter -diff -merge text eol=lf
+*.meta       -filter -diff -merge text eol=lf
