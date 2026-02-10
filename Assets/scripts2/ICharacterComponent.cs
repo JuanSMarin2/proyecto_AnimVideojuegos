@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.scripts2
 {
-    internal class ICharacterComponent
+    public interface ICharacterComponent
     {
         Character ParentCharacter { get; set; }
     }

@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "ThirPersonControler",
+    "maps": [
+        {
+            "name": "Character",
+            "id": "103c90ec-58ba-4e45-be24-176ea95b1675",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "550bc5c5-206c-4c97-bfb3-68752e5c94e6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aafeae3d-74d4-4211-a0f0-5d3839c2f81f",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
