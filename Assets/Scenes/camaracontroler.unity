@@ -436,6 +436,9 @@ PrefabInstance:
       addedObject: {fileID: 733514428}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 733514433}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 733514424}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       insertIndex: -1
@@ -535,6 +538,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7ff99e0c-908c-4c08-8806-85eba76d6e19
     m_ActionName: 'Character/Aim[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 733514433}
+        m_TargetAssemblyTypeName: Clases.Clase_2.Scripts.CharacterLock, Assembly-CSharp
+        m_MethodName: OnLock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1787cd6c-9a23-4d7e-b003-7154f08cc2a9
+    m_ActionName: 'Character/Lock[/Mouse/middleButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Character
@@ -615,7 +634,7 @@ MonoBehaviour:
   speedY:
     _smoothTime: 0.5
   camera: {fileID: 2060742528}
-  angularSpeed: 0
+  angularSpeed: 90
 --- !u!114 &733514431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,6 +651,18 @@ MonoBehaviour:
   aimDampener:
     _smoothTime: 0
   aimConstraint: {fileID: 1528222479}
+--- !u!114 &733514433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733514423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdca5538e2eb4e1cb3955dd75060d58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1243772885
 GameObject:
   m_ObjectHideFlags: 0
