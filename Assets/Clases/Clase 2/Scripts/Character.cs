@@ -7,13 +7,18 @@ namespace Clases.Clase_2.Scripts
     public class Character : MonoBehaviour
     {
         private bool isAiming;
-
+        private Transform lockTarget;
         public bool IsAiming
         {
             get => isAiming;
             set => isAiming = value;
         }
-        
+
+        public Transform LockTarget { 
+            get => LockTarget;
+            set => LockTarget = value;
+        }
+
         private void Awake()
         {
             RegisterComponents();
