@@ -30,6 +30,13 @@ namespace Clases.Clase_2.Scripts
             {
                 throw new NullReferenceException("Look target is null");
             }
+            if(ParentCharacter.LockTarget != null)
+            {
+                Vector3 lookDirection = (ParentCharacter.LockTarget.position -  transform.position).normalized;
+                Quaternion rotation = Quaternion.LookRotation(forward:lookDirection , upwards:Vector3.zero);
+                target.rotation = rotation;
+                return;
+            }
             target.RotateAround(target.position, transform.up, horizontalDampener.CurrentValue * horizontalRotationSpeed * 360 * Time.deltaTime);
             verticalRotation += verticalDampener.CurrentValue * verticalRotationSpeed * 360 * Time.deltaTime;
             verticalRotation = Mathf.Clamp(verticalRotation,verticalRotationLimits.x, verticalRotationLimits.y);
