@@ -349,6 +349,65 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &607068596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 607068598}
+  - component: {fileID: 607068597}
+  m_Layer: 0
+  m_Name: GunTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1773428102 &607068597
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607068596}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0.000018954277, y: 1.0000019, z: 13.000029}
+  m_RotationAtRest: {x: 0, y: 0.000107288295, z: 0.00019311893}
+  m_TranslationOffsets:
+  - {x: -11.010589, y: 6.85651, z: 0.42588067}
+  m_RotationOffsets:
+  - {x: -33.789654, y: -91.65323, z: 121.02784}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_Active: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1557229453}
+    weight: 1
+--- !u!4 &607068598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607068596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.008301547, y: 0.28010535, z: -0.0013534374, w: 0.95993245}
+  m_LocalPosition: {x: 6.9805427, y: 0.7832686, z: 10.95877}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &667085382
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,19 +568,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3480699329000672020, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9930638
+      value: 0.9711
       objectReference: {fileID: 0}
     - target: {fileID: -3480699329000672020, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.100515515
+      value: -0.090047985
       objectReference: {fileID: 0}
     - target: {fileID: -3480699329000672020, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06076359
+      value: 0.22033583
       objectReference: {fileID: 0}
     - target: {fileID: -3480699329000672020, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0053591
+      value: 0.017563261
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       propertyPath: m_Name
@@ -535,6 +594,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1557229455}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 733514430}
@@ -664,6 +726,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1787cd6c-9a23-4d7e-b003-7154f08cc2a9
     m_ActionName: 'Character/Lock[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1557229455}
+        m_TargetAssemblyTypeName: Clases.Clase_2.Scripts.CharacterGun, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5eaec53-7bb6-4dbb-9a58-e875bd337ce0
+    m_ActionName: 'Character/Fire[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Character
@@ -993,7 +1071,7 @@ Transform:
   m_GameObject: {fileID: 1329374800}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.02, y: -0.19, z: 3}
+  m_LocalPosition: {x: -0.09, y: -0.19, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1062,6 +1140,42 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 1329374801}
     weight: 1
+--- !u!4 &1557229453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8447082967072642302, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
+  m_PrefabInstance: {fileID: 733514420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1557229454 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
+  m_PrefabInstance: {fileID: 733514420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1557229455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733514423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a2fbc79d83d3d41962d506ca826a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 2060742528}
+  animator: {fileID: 1557229454}
+  recoil: {fileID: 0}
+  automatic: 1
+  requiereAim: 1
+  fireRate: 10
+  range: 200
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 64
+  camKick: 0.12
+  camRecover: 0.18
+  tracerOrigin: {fileID: 607068598}
+  isFiring: 0
 --- !u!1 &1581507727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,3 +1457,4 @@ SceneRoots:
   - {fileID: 67233787}
   - {fileID: 1355655875}
   - {fileID: 667085386}
+  - {fileID: 607068598}

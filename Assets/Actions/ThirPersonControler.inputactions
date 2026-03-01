@@ -17,7 +17,7 @@
                 },
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "83e94261-01ef-475c-9a84-cee4bfdf81b7",
                     "expectedControlType": "",
                     "processors": "",
@@ -37,6 +37,15 @@
                     "name": "Lock",
                     "type": "Button",
                     "id": "1787cd6c-9a23-4d7e-b003-7154f08cc2a9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "c5eaec53-7bb6-4dbb-9a58-e875bd337ce0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -129,6 +138,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab284a80-e5bf-413c-8663-31867a34a874",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
