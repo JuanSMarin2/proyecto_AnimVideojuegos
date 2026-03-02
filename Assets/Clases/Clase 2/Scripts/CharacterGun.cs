@@ -34,7 +34,8 @@ namespace Clases.Clase_2.Scripts
         [SerializeField] private bool isFiring;
 
         public Character ParentCharacter { get; set; }
-        
+        [SerializeField] private float debugDuration;
+
         private float _nextShootTime;
         public void OnFire(InputAction.CallbackContext context)
         {
@@ -61,8 +62,48 @@ namespace Clases.Clase_2.Scripts
 
         private void ShootOnce()
         {
-            if(animator) animator.SetTrigger(name:"Fire");
-            
+            if (animator) animator.SetTrigger("Fire");
+            if (recoil) recoil.Kick(camShake, camKick, camRecover);
+
+            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            Vector3 from = tracerOrigin ? tracerOrigin.position : ray.origin;
+
+            RaycastHit hit; //  Declaramos aquí
+
+            if (Physics.Raycast(ray, out hit, range, hitMask, QueryTriggerInteraction.Ignore))
+            {
+                Vector3 to = hit.point;
+
+                Debug.DrawRay(ray.origin, ray.direction * Vector3.Distance(ray.origin, to), Color.magenta, debugDuration);
+                Debug.DrawLine(from, to, Color.yellow, debugDuration);
+                Debug.DrawRay(to, hit.normal, Color.red, debugDuration);
+
+                var info = new IHitttable.HitInfo
+                {
+                    point = hit.point,
+                    normal = hit.normal,
+                    damage = 10f
+                };
+
+                if (hit.collider.TryGetComponent<IHitttable.IHittable>(out var hittable))
+                {
+                    hittable.ApplyHit(info);
+                }
+                else
+                {
+                    var rb = hit.collider.attachedRigidbody;
+                    if (rb && rb.TryGetComponent<IHitttable.IHittable>(out var hittable2))
+                    {
+                        hittable2.ApplyHit(info);
+                    }
+                }
+            }
+            else
+            {
+                Vector3 to = ray.origin + ray.direction * range;
+                Debug.DrawRay(ray.origin, ray.direction * range, Color.gray, debugDuration);
+                Debug.DrawLine(from, to, Color.yellow, debugDuration);
+            }
         }
     }
 }
