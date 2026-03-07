@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class CharacterGun : MonoBehaviour, ICharacterComponent
 {
@@ -20,6 +21,10 @@ public class CharacterGun : MonoBehaviour, ICharacterComponent
     [SerializeField] private float camKick = 0.12f;
     [SerializeField] private float camRecover = 0.18f;
 
+    [Header("Reload")]
+    [SerializeField] private float reloadTime = 1.5f;
+    [SerializeField] private bool isReloading;
+
     [SerializeField] private Transform tracerOrigin;
 
     [SerializeField] private bool isFiring;
@@ -38,9 +43,11 @@ public class CharacterGun : MonoBehaviour, ICharacterComponent
 
     private void TryShoot()
     {
+         if (isReloading) return;   
         if (requiereAim && (ParentCharacter == null || !ParentCharacter.IsAiming)) return;
         if(Time.time < _nextShootTime) return;
         _nextShootTime = Time.time + 1f / Mathf.Max(1f,fireRate);
+        
 
         ShootOnce();
     }
@@ -100,6 +107,25 @@ public class CharacterGun : MonoBehaviour, ICharacterComponent
         }
 
        
+    }
+
+    public void OnReload(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && !isReloading)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+
+        if (animator != null)
+            animator.SetTrigger("Reload");
+
+        yield return new WaitForSeconds(reloadTime);
+
+        isReloading = false;
     }
 
     private void Update()
