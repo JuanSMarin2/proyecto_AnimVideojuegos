@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "InputGesture",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "93a3fc84-fd5b-4113-9516-e911363271ec",
+            "actions": [
+                {
+                    "name": "Emote",
+                    "type": "Value",
+                    "id": "e41db3f2-c76a-41ca-a98a-4b89114fb53a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "06e23bbc-fb88-442a-bbc7-d177997c10a6",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Emote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
