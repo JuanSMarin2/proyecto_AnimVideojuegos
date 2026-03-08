@@ -17,7 +17,10 @@ namespace Clases.Clase_2.Scripts
         [SerializeField] private Camera camera;
         [SerializeField] private float angularSpeed;
         private Quaternion targetRotation;
-        
+
+        [SerializeField] private float stealthSpeedMultiplier = 0.4f;
+        private CharacterStealth stealth;
+
         private int _speedXHash;
         private int _speedYHash;
         private Animator _animator;
@@ -27,6 +30,7 @@ namespace Clases.Clase_2.Scripts
             _animator = GetComponent<Animator>();
             _speedXHash = Animator.StringToHash("SpeedX");
             _speedYHash = Animator.StringToHash("SpeedY");
+            stealth = GetComponent<CharacterStealth>();
         }
 
         private void SolveCharacterRotation()
@@ -51,8 +55,15 @@ namespace Clases.Clase_2.Scripts
         {
             speedX.Update();
             speedY.Update();
-            _animator.SetFloat(_speedXHash,speedX.CurrentValue);
-            _animator.SetFloat(_speedYHash,speedY.CurrentValue);
+            float multiplier = 1f;
+
+            if (stealth != null && stealth.IsStealth)
+            {
+                multiplier = stealthSpeedMultiplier;
+            }
+
+            _animator.SetFloat(_speedXHash, speedX.CurrentValue * multiplier);
+            _animator.SetFloat(_speedYHash, speedY.CurrentValue * multiplier);
             SolveCharacterRotation();
             if (!ParentCharacter.IsAiming)
                 ApplyCharacterRotation();

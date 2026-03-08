@@ -17,9 +17,9 @@
                 },
                 {
                     "name": "Move",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "83e94261-01ef-475c-9a84-cee4bfdf81b7",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -46,6 +46,15 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "c5eaec53-7bb6-4dbb-9a58-e875bd337ce0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sneak",
+                    "type": "Button",
+                    "id": "549e4b66-3992-413f-b392-5395dd6b9c0f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -149,6 +158,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "324ce38c-abd4-4a26-aa98-da6bf7eb3a46",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sneak",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

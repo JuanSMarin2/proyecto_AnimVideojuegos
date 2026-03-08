@@ -7,11 +7,18 @@ namespace Clases.Clase_2.Scripts
     public class Character : MonoBehaviour
     {
         private bool isAiming;
+        private bool isStealth;
         private Transform lockTarget;
         public bool IsAiming
         {
             get => isAiming;
             set => isAiming = value;
+        }        
+
+        public bool IsStealth
+        {
+            get => isStealth;
+            set => isStealth = value;
         }
 
         public Transform LockTarget

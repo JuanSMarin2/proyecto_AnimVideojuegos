@@ -54,16 +54,26 @@ namespace Clases.Clase_2.Scripts
 
         private void Tryshoot()
         {
-            if(requiereAim && (ParentCharacter == null || !ParentCharacter.IsAiming)) return;
+            if (requiereAim && (ParentCharacter == null || !ParentCharacter.IsAiming)) return;
             if (Time.time < _nextShootTime) return;
+
             _nextShootTime = Time.time + 1f / Mathf.Max(1f, fireRate);
+
+            if (ParentCharacter != null && ParentCharacter.IsStealth)
+            {
+                Debug.Log("Disparando en sigilo");
+            }
+
             ShootOnce();
         }
 
         private void ShootOnce()
         {
             if (animator) animator.SetTrigger("Fire");
-            if (recoil) recoil.Kick(camShake, camKick, camRecover);
+            if (recoil && (ParentCharacter == null || !ParentCharacter.IsStealth))
+            {
+                recoil.Kick(camShake, camKick, camRecover);
+            }
 
             Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             Vector3 from = tracerOrigin ? tracerOrigin.position : ray.origin;
