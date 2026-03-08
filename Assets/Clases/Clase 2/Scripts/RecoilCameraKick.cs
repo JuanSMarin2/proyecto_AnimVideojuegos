@@ -25,7 +25,7 @@ namespace Assets.Clases.Clase_2.Scripts
             {
                 if (!_cameras[i]) continue;
                 perlins[i] = _cameras[i].GetComponent<CinemachineBasicMultiChannelPerlin>();
-                if(!perlins[i]) baseAmplitud[i] = perlins[i].AmplitudeGain;
+                if(perlins[i]) baseAmplitud[i] = perlins[i].AmplitudeGain;
             }
         }
 
