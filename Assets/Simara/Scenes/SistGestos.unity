@@ -333,7 +333,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746896926}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746896927}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746896928}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746896929}
   m_SourcePrefab: {fileID: 100100000, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
 --- !u!1 &1228506396
 GameObject:
@@ -565,6 +577,124 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1746896923 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+  m_PrefabInstance: {fileID: 792230228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1746896924 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 838fbccf9a7070849a5c2f4bb2bd6234, type: 3}
+  m_PrefabInstance: {fileID: 792230228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1746896926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746896923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec39c3ba23b28e439f72a45365d8fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1746896924}
+  emoteTrigger: Emote
+  shootingState: Shoot
+  reloadState: Reload
+--- !u!114 &1746896927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746896923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 75d471ba2905b284ba315782aeddc703, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f6156d5b-8c00-4ca8-a673-00a60d35faab
+    m_ActionName: 'Character/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 35a52381-992d-468b-bc89-471b297b4a77
+    m_ActionName: 'Character/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4be47ad4-ba32-435c-a7b0-a0bbe2c2f56d
+    m_ActionName: 'Character/Aim[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 63b7fac3-7d45-4d20-8472-ea39a5921f2d
+    m_ActionName: 'Character/Lock[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e48e553d-cdbf-4134-b6a7-1c4174087696
+    m_ActionName: 'Character/Fire[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1746896926}
+        m_TargetAssemblyTypeName: EmoteController, Assembly-CSharp
+        m_MethodName: OnEmote
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5466975f-526a-4b7b-80dc-58510aac1cf8
+    m_ActionName: 'Character/Emote[/Keyboard/t]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Character
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1746896928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746896923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f325d8c1b28b5f4aac22a26921ac6e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1746896929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746896923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0082bc4c083cb5b42868febaf777d73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1746896924}
+  inputType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
