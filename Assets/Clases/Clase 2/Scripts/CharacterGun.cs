@@ -11,6 +11,8 @@ namespace Clases.Clase_2.Scripts
 {
     public class CharacterGun : MonoBehaviour, ICharacterComponent
     {
+        public bool IsFiring => isFiring;
+
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Animator animator;
         [SerializeField] private RecoilCameraKick recoil;
