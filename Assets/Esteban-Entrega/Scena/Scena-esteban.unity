@@ -741,6 +741,9 @@ PrefabInstance:
       addedObject: {fileID: 1557229456}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1557229457}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 733514424}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f580cf041cd5134d921b7b8fd3d8e1e, type: 3}
       insertIndex: -1
@@ -888,6 +891,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 549e4b66-3992-413f-b392-5395dd6b9c0f
     m_ActionName: 'Character/Sneak[/Keyboard/leftCtrl]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1557229457}
+        m_TargetAssemblyTypeName: Clases.Clase_2.Scripts.CharacterGesture, Assembly-CSharp
+        m_MethodName: OnGesture
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d0694b98-debb-4a11-be16-e725adad315c
+    m_ActionName: 'Character/Gesture[/Keyboard/t]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Character
@@ -1444,6 +1463,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1557229454}
   stealthIndicator: {fileID: 1412461861}
+--- !u!114 &1557229457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733514423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20827834889d2ff468e40d460d48b31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1557229454}
+  gestureTrigger: Gesture
 --- !u!1 &1581507727
 GameObject:
   m_ObjectHideFlags: 0
