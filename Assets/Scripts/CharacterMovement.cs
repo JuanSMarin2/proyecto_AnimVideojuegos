@@ -48,18 +48,13 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
         Debug.DrawLine(transform.position, transform.position + characterForward * 3, Color.green, 5);
         targetRotation = Quaternion.LookRotation(characterForward, floorNormal);
 
-
     }
-    
-
-
     public void OnMove(InputAction.CallbackContext ctx)
     {
         Vector2 inputValue = ctx.ReadValue<Vector2>();
         speedX.TargetValue = inputValue.x;
         speedY.TargetValue = inputValue.y;
 
-   
     }
 
     private void Update()
@@ -75,7 +70,6 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
 
         _animator.SetFloat(_speedXHash, speedX.CurrentValue * animMultiplier);
         _animator.SetFloat(_speedYHash, speedY.CurrentValue * animMultiplier);
-
 
 
         SolveCharacterRotation();
