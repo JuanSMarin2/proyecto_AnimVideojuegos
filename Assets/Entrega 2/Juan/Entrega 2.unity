@@ -331,6 +331,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2951387236061e6408ce7db76b1c58e2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 84918134}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2951387236061e6408ce7db76b1c58e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 84918135}
     - targetCorrespondingSourceObject: {fileID: -7657966619581158213, guid: 2951387236061e6408ce7db76b1c58e2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 579653278}
@@ -477,6 +480,42 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0b4eac20-fa7b-4ea4-9356-8652133ebfe4
     m_ActionName: 'Character/Fire[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 84918132}
+        m_TargetAssemblyTypeName: CharacterGun, Assembly-CSharp
+        m_MethodName: OnReload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3fc44563-02a0-487b-b81c-328551d22929
+    m_ActionName: 'Character/Reload[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 84918135}
+        m_TargetAssemblyTypeName: CharacterCrouch, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 027d6a86-8bf5-4950-b8cf-d398c7d2abc2
+    m_ActionName: 'Character/Stealth[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 089bea86-a240-4083-8117-216de048cc37
+    m_ActionName: 'Character/Emote[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Character
@@ -588,6 +627,8 @@ MonoBehaviour:
   camShake: 0.6
   camKick: 0.12
   camRecover: 0.18
+  reloadTime: 1.5
+  isReloading: 0
   tracerOrigin: {fileID: 588281915}
   isFiring: 0
 --- !u!114 &84918133
@@ -633,6 +674,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &84918135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84918124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088d666cfe9ea6f4b80c2c9214a257fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 84918125}
+  isCrouching: 0
 --- !u!1 &277208958
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
 
     private bool isAiming;
+    private bool isCrouching;
     private Transform lockTarget;
 
     public bool IsAiming
@@ -13,6 +14,12 @@ public class Character : MonoBehaviour
 
         get => isAiming;
         set => isAiming = value;
+    }
+
+    public bool IsCrouching
+    {
+        get => isCrouching;
+        set => isCrouching = value;
     }
     public Transform LockTarget { get => lockTarget;  set => lockTarget=value; }
 

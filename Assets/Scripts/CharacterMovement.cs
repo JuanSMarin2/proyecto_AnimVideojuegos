@@ -50,17 +50,7 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
 
 
     }
-    private void FixedUpdate()
-    {
-        Vector3 moveDirection = new Vector3(speedX.CurrentValue, 0, speedY.CurrentValue);
-        moveDirection = Quaternion.Euler(0, camera.transform.eulerAngles.y, 0) * moveDirection;
-
-        rb.linearVelocity = new Vector3(
-            moveDirection.x * moveSpeed,
-            rb.linearVelocity.y,
-            moveDirection.z * moveSpeed
-        );
-    }
+    
 
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -68,14 +58,25 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
         Vector2 inputValue = ctx.ReadValue<Vector2>();
         speedX.TargetValue = inputValue.x;
         speedY.TargetValue = inputValue.y;
+
+   
     }
 
     private void Update()
     {
         speedX.Update();
         speedY.Update();
-        _animator.SetFloat(_speedXHash, speedX.CurrentValue);
-        _animator.SetFloat(_speedYHash, speedY.CurrentValue);
+
+
+        moveSpeed = ParentCharacter.IsCrouching ? 2.5f : 5f;
+        float animMultiplier = ParentCharacter.IsCrouching ? .5f : 1f;
+
+        MoveCharacter();
+
+        _animator.SetFloat(_speedXHash, speedX.CurrentValue * animMultiplier);
+        _animator.SetFloat(_speedYHash, speedY.CurrentValue * animMultiplier);
+
+
 
         SolveCharacterRotation();
 

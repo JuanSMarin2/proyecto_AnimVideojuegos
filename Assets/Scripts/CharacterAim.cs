@@ -39,7 +39,7 @@ public class CharacterAim : MonoBehaviour, ICharacterComponent
 
     private void Start()
     {
-        // Desde el inicio el arma está en el holder
+    
         MoveWeaponToHolder();
     }
 
@@ -106,7 +106,7 @@ public class CharacterAim : MonoBehaviour, ICharacterComponent
 
         weaponPivot.rotation = rot * weaponPivot.rotation;
 
-        // corregir posición tras rotación
+     
         gripToPivot = weaponPivot.position - gunGrip.position;
         weaponPivot.position = rightHandSocket.position + gripToPivot;
     }
