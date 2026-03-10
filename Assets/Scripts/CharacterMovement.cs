@@ -19,20 +19,24 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
 
     private Rigidbody rb;
 
-    [SerializeField] private float moveSpeed = 5f;
+   [SerializeField] private float moveSpeed = 5f;
+    private float currentMoveSpeed;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _speedXHash = Animator.StringToHash("SpeedX");
         _speedYHash = Animator.StringToHash("SpeedY");
+
+        currentMoveSpeed = moveSpeed;
     }
+
     private void MoveCharacter()
     {
         Vector3 moveDirection = new Vector3(speedX.CurrentValue, 0, speedY.CurrentValue);
         moveDirection = Quaternion.Euler(0, camera.transform.eulerAngles.y, 0) * moveDirection;
 
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position += moveDirection * currentMoveSpeed * Time.deltaTime;
     }
 
     private void SolveCharacterRotation()
@@ -71,7 +75,7 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
         speedY.Update();
 
 
-        moveSpeed = ParentCharacter.IsCrouching ? 2.5f : 5f;
+        currentMoveSpeed = ParentCharacter.IsCrouching ? moveSpeed/2 : moveSpeed;
         float animMultiplier = ParentCharacter.IsCrouching ? .8f : 1f;
 
         MoveCharacter();
