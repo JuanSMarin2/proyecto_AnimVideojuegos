@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class CharacterLock : MonoBehaviour, ICharacterComponent
 {
@@ -9,7 +10,15 @@ public class CharacterLock : MonoBehaviour, ICharacterComponent
     [SerializeField] private float detectionRadius;
     [SerializeField] private float detectionAngle;
 
+    [SerializeField] private TextMeshProUGUI lockText;
+
+
+
+    private bool autoLockEnabled;
+
     public Character ParentCharacter { get; set; }
+
+  
     public void OnLock(InputAction.CallbackContext ctx)
     {
         if (!ctx.started) return;
@@ -18,38 +27,86 @@ public class CharacterLock : MonoBehaviour, ICharacterComponent
         {
             ParentCharacter.LockTarget = null;
             return;
+
         }
 
+        ParentCharacter.LockTarget = FindBestTarget();
 
-        Collider[] detectedObjects = Physics.OverlapSphere(transform.position, detectionRadius, detectionMask);
-        if(detectedObjects.Length == 0) return;
+    }
 
-        float nearestAngle = detectionAngle;
-        float nearestDistance = detectionRadius;
-        int closestObject = 0;
+    public void ToggleAutoLock()
+    {
+        autoLockEnabled = !autoLockEnabled;
 
-        Vector3 cameraFoward = camera.transform.forward;
+        lockText.text = autoLockEnabled ? "Desactivar Auto Lock" : "Activar Auto Lock";
 
-        for(int i = 0; i < detectedObjects.Length; i++)
+        ParentCharacter.LockTarget = null;
+    }
+
+
+    private void Update()
+    {
+        if (!autoLockEnabled) return;
+
+        if (ParentCharacter.LockTarget == null)
         {
-            Collider obj = detectedObjects[i];
-            Vector3 objViewDirection = (obj.transform.position - camera.transform.position);
-            float dot = Vector3.Dot(cameraFoward, objViewDirection.normalized);
-            float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+            ParentCharacter.LockTarget = FindBestTarget();
+        }
+        else
+        {
+            ValidateTarget();
+        }
+    }
 
-            if(angle > detectionAngle) continue;
-
-            float distance = Vector3.Distance( obj.transform.position, transform.position);
-            if(distance < nearestDistance && angle < nearestAngle)
-                closestObject = i;
-
-            nearestDistance = Mathf.Min(nearestDistance, distance);
-            nearestAngle = Mathf.Min(nearestAngle, angle);
-
-
+    void ValidateTarget()
+    {
+        Transform target = ParentCharacter.LockTarget;
+        if (target == null)
+        {
+            ParentCharacter.LockTarget = null;
+            return;
         }
 
-        ParentCharacter.LockTarget = detectedObjects[closestObject].transform;
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        Vector3 dir = (target.position - camera.transform.position).normalized;
+        float angle = Vector3.Angle(camera.transform.forward, dir);
+
+        if (distance > detectionRadius || angle > detectionAngle)
+        {
+            ParentCharacter.LockTarget = null;
+        }
+    }
+
+    Transform FindBestTarget()
+    {
+        Collider[] detectedObjects =
+            Physics.OverlapSphere(transform.position, detectionRadius, detectionMask);
+
+        if (detectedObjects.Length == 0) return null;
+
+        float nearestDistance = detectionRadius;
+        Transform closest = null;
+
+        Vector3 cameraForward = camera.transform.forward;
+
+        foreach (Collider obj in detectedObjects)
+        {
+            Vector3 dir = obj.transform.position - camera.transform.position;
+            float angle = Vector3.Angle(cameraForward, dir);
+
+            if (angle > detectionAngle) continue;
+
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                closest = obj.transform;
+            }
+        }
+
+        return closest;
     }
 
 

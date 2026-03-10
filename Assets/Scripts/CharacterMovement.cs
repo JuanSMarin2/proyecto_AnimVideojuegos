@@ -51,6 +51,7 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
     }
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        if(ParentCharacter.IsEmoting) return;
         Vector2 inputValue = ctx.ReadValue<Vector2>();
         speedX.TargetValue = inputValue.x;
         speedY.TargetValue = inputValue.y;
@@ -59,12 +60,19 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
 
     private void Update()
     {
+
+        if (ParentCharacter.IsEmoting)
+        {
+            speedX.TargetValue = 0;
+            speedY.TargetValue = 0;
+        }
+
         speedX.Update();
         speedY.Update();
 
 
         moveSpeed = ParentCharacter.IsCrouching ? 2.5f : 5f;
-        float animMultiplier = ParentCharacter.IsCrouching ? .5f : 1f;
+        float animMultiplier = ParentCharacter.IsCrouching ? .8f : 1f;
 
         MoveCharacter();
 

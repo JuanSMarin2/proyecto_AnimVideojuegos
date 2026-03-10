@@ -45,7 +45,7 @@ public class CharacterAim : MonoBehaviour, ICharacterComponent
 
     public void OnAim(InputAction.CallbackContext ctx)
     {
-        if (!ctx.started && !ctx.canceled) return;
+        if (!ctx.started && !ctx.canceled || ParentCharacter.IsEmoting) return;
 
         isAiming = ctx.started;
 
