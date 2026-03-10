@@ -111,7 +111,7 @@ public class CharacterGun : MonoBehaviour, ICharacterComponent
 
     public void OnReload(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && !isReloading)
+        if (ctx.performed && !isReloading && ParentCharacter != null && ParentCharacter.IsAiming && !isFiring)
         {
             StartCoroutine(Reload());
         }
