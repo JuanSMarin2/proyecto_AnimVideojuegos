@@ -1,5 +1,13 @@
 # Entrega 2 – Animación para Videojuegos
 
+## Integrantes
+* Juan Sebastián Marín
+* Esteban Puerta
+* Simara Paola Villasmil
+* Isaac Pineda
+
+
+
 ## Controles
 
 * **WASD / Flechas** → Movimiento del personaje
