@@ -220,13 +220,13 @@ AnimatorController:
   m_Name: movimiento
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: speedX
+  - m_Name: SpeedX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: speedY
+  - m_Name: SpeedY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -389,8 +389,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: speedX
     m_Mirror: 0
-  m_BlendParameter: speedX
-  m_BlendParameterY: speedY
+  m_BlendParameter: SpeedX
+  m_BlendParameterY: SpeedY
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -492,8 +492,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Speedx
     m_Mirror: 0
-  m_BlendParameter: speedX
-  m_BlendParameterY: speedY
+  m_BlendParameter: SpeedX
+  m_BlendParameterY: SpeedY
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1

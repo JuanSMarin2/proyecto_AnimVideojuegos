@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+//
 namespace Clases.Clase_2.Scripts
 {
     [DefaultExecutionOrder(-1)]
@@ -14,9 +14,10 @@ namespace Clases.Clase_2.Scripts
             set => isAiming = value;
         }
 
-        public Transform LockTarget { 
-            get => LockTarget;
-            set => LockTarget = value;
+        public Transform LockTarget
+        {
+            get => lockTarget;
+            set => lockTarget = value;
         }
 
         private void Awake()
