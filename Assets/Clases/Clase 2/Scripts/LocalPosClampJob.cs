@@ -7,7 +7,7 @@ using Unity.Mathematics;
 namespace Assets.Clases.Clase_2.Scripts
 {
     [BurstCompile]
-    internal struct LocalPosClampJob : IWeightedAnimationJob
+    public struct LocalPosClampJob : IWeightedAnimationJob
     {
 
         public ReadWriteTransformHandle driven;
@@ -60,11 +60,19 @@ namespace Assets.Clases.Clase_2.Scripts
     {
         public override LocalPosClampJob Create(Animator animator, ref LocalPosClamptData data, Component component)
         {
-            LocalPosClampJob job = new LocalPosClampJob();
-            job.driven = ReadWriteTransformHandle.Bind(animator, data.constrainedObject);
-            job.minLocal = data.minLocal;
-            job.maxLocal = data.maxLocal;
+            var job = new LocalPosClampJob
+            {
+                driven = ReadWriteTransformHandle.Bind(animator, data.constrainedObject),
+                minLocal = data.minLocal,
+                maxLocal = data.maxLocal,
+                jobWeight = FloatProperty.Bind(animator, component, name:"m_Weight")
+            };
             return job;
+        }
+
+        public override void Destroy(LocalPosClampJob job)
+        {
+
         }
     }
 }
