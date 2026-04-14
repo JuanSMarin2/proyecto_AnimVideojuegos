@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 277208959}
   - component: {fileID: 277208962}
   - component: {fileID: 277208963}
+  - component: {fileID: 277208964}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -242,14 +243,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277208958}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7045675, z: -0, w: 0.70963705}
-  m_LocalPosition: {x: -3.7, y: 1.05, z: 0.97}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -4.17, y: 1.87, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 68887359}
   m_Father: {fileID: 2029746901}
-  m_LocalEulerAnglesHint: {x: 0, y: 89.589, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &277208962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +327,102 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 11400000, guid: e88a6a6dd71a69d46a56a51bdec42189, type: 2}
+--- !u!114 &277208964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277208958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ade3fc31c8df6409478b38e92c09c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curveLight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.035822887
+      outSlope: 0.035822887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.40331838
+    - serializedVersion: 3
+      time: 0.21847515
+      value: 0.03264909
+      inSlope: 0.5794669
+      outSlope: 0.5794669
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2881599
+    - serializedVersion: 3
+      time: 0.44543225
+      value: 0.033433042
+      inSlope: -0.2038141
+      outSlope: -0.2038141
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15895443
+    - serializedVersion: 3
+      time: 1.0009251
+      value: 0.0026822127
+      inSlope: 0.0026980913
+      outSlope: 0.0026980913
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06816516
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curveHeavy:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.035822887
+      outSlope: 0.035822887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.40331838
+    - serializedVersion: 3
+      time: 0.2357353
+      value: 0.02985269
+      inSlope: 0.5251721
+      outSlope: 0.5251721
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23529367
+    - serializedVersion: 3
+      time: 0.40776074
+      value: 0.085649505
+      inSlope: -0.35923508
+      outSlope: -0.35923508
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.095451295
+    - serializedVersion: 3
+      time: 1.0009251
+      value: 0.0026822127
+      inSlope: 0.0026980913
+      outSlope: 0.0026980913
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06816516
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &320876119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +2017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ligthCost: 0
   heavyCost: 0
+  isLight: 0
+  cameraShake: {fileID: 277208964}
 --- !u!114 &1525387300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,7 +2319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bf3739b4d53347c4ab88bad4e567aafa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5846916
+      value: 1.4446917
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bf3739b4d53347c4ab88bad4e567aafa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2739,7 +2838,7 @@ Transform:
   m_GameObject: {fileID: 2029746900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2769,7 +2868,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
