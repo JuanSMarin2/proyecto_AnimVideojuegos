@@ -70,6 +70,10 @@ public class AttackController : MonoBehaviour
     {
         SubscribeMoveInput();
     }
+     public void DepleteStaminaWithParameters()
+    {
+        
+    }
 
     private void OnDisable()
     {
@@ -130,6 +134,8 @@ public class AttackController : MonoBehaviour
             }
         }
     }
+
+    
 
     public void OnLightAttackHit()
     {
@@ -322,4 +328,6 @@ public class AttackController : MonoBehaviour
             default: return Vector3.zero;
         }
     }
+
+  
 }
