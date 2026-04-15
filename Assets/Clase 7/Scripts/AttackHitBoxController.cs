@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class AttackHitBoxController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject[] hitBoxes;
+
+    public void ToggleHitboxes(int attackId)
     {
-        
+
+        for(int hitBoxIndex = 0; hitBoxIndex < hitBoxes.Length; hitBoxIndex++)
+        {
+            GameObject hitBox = this.hitBoxes[hitBoxIndex];
+            hitBox.SetActive(!hitBox.activeSelf);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CleanupHitBoxes()
     {
-        
+        foreach (GameObject colliders in hitBoxes)
+        {
+            colliders.SetActive(false);
+        }
     }
 }

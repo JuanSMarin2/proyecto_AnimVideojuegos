@@ -43,4 +43,25 @@ public class AttackController : MonoBehaviour
 
         }
     }
+
+    public void DepleteStamina(float amount)
+    {
+        Game.Instance.PlayerOne.DepleteStamina(amount);
+    }
+
+    public void DepleteStaminaWithParameter(string parameter)
+    {
+       float motionValue = GetComponent<Animator>().GetFloat(parameter);
+       DepleteStamina(motionValue);
+    }
+
+    public void ToggleAttackHitBox(int hitboxId)
+    {
+        hitBoxController.ToggleHitboxes(hitboxId);
+    }
+
+    public void CleanUpAttackHitBox()
+    {
+        hitBoxController.CleanupHitBoxes();
+    }
 }
