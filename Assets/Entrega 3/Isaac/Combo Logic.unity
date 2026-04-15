@@ -2510,7 +2510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f68f486bad8ac740abf40cbcaac4b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   angularSpeed: 720
   playerCamera: {fileID: 277208960}
 --- !u!54 &1854449916
