@@ -21,8 +21,10 @@ public class ThirdPersonCameraController : MonoBehaviour
     [SerializeField] private bool invertY = false;
 
     [Header("Pitch Clamp")]
-    [SerializeField] private float minPitch = -80f;
-    [SerializeField] private float maxPitch = 80f;
+    [Tooltip("Vertical rotation lower limit (looking down). Smaller magnitude = less freedom.")]
+    [SerializeField] private float minPitch = -40f;
+    [Tooltip("Vertical rotation upper limit (looking up). Smaller magnitude = less freedom.")]
+    [SerializeField] private float maxPitch = 60f;
 
     [Header("Smoothing")]
     [SerializeField] private bool smoothRotation = true;
