@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "ARPG",
+    "maps": [
+        {
+            "name": "CharacterARPG",
+            "id": "3f025b1f-14bb-44b9-ac45-769a3b88fde4",
+            "actions": [
+                {
+                    "name": "HeavyAttack",
+                    "type": "Button",
+                    "id": "1eaa93fb-d2ef-4abb-a6ba-b04808494610",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LigthAttack",
+                    "type": "Button",
+                    "id": "da2bd392-4196-46fa-ac60-e4fad343482f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "97c56052-48f2-4f6f-86ec-edc25cd1dd84",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f0d88e1-6c02-4c9f-94b8-55d90f33bf32",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LigthAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
