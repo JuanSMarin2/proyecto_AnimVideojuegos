@@ -12,5 +12,6 @@ EditorBuildSettings:
     path: Assets/Entrega 2/Juan/Entrega 2.unity
     guid: a2d12470f65100547b9df4eb991950ae
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings: {fileID: 11400000, guid: 4093602e646b1f24f8db9387f3cf8503, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2d01e4a94f88b3b4f9825f1b412c2957, type: 3}
   m_UseUCBPForAssetBundles: 0
