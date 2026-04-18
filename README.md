@@ -1,4 +1,4 @@
-# Entrega 2 – Animación para Videojuegos
+# Entrega 3 – Animación para Videojuegos
 
 ## Integrantes
 * Juan Sebastián Marín
@@ -8,50 +8,69 @@
 
 
 
-## Controles
+## Descripción general
 
-* **WASD / Flechas** → Movimiento del personaje
-* **Shift** → Agacharse
-* **E** → Realizar emote
-* **Click derecho** → Apuntar
-* **Click izquierdo** *(mientras se apunta)* → Disparar
-* **R** *(mientras se apunta)* → Recargar
-* **Botón de scroll del mouse** → Activar / desactivar lock-on al enemigo
+El proyecto implementa un sistema de combate tipo ARPG basado en combos direccionales. Cada ataque depende tanto del tiempo como de la dirección del joystick, permitiendo ejecutar variantes según el input del jugador.
 
-## Ejecutable y video
+El sistema integra locomoción, control de estados, encadenamiento mediante ventanas de tiempo y feedback visual al impactar. Se busca mantener una experiencia fluida, evitando inconsistencias entre movimiento y combate.
 
-**[[Enlace aquí]](https://drive.google.com/drive/folders/1BwPA_n3NXnRCb0h3rottGgR-wL409rxe?usp=sharing)**
+Criterios de diseño
+
+La direccionalidad de los ataques se obtiene a partir del joystick. Se aplica una deadzone para evitar ruido y se determina la dirección dominante entre los ejes horizontal y vertical. Esto permite clasificar los ataques en variantes direccionales claras.
+
+Para mejorar la respuesta, se implementa un buffer de dirección que conserva la última dirección válida durante una ventana corta. Esto evita la pérdida de inputs cuando el jugador suelta el joystick justo antes de atacar.
+
+El sistema de combos se basa en ventanas temporales definidas desde las animaciones. Durante estas ventanas, se captura la dirección que se utilizará en el siguiente ataque. Si no hay una dirección capturada, el sistema recurre a otras fuentes siguiendo una prioridad definida:
+
+* dirección capturada durante la ventana de combo
+* dirección almacenada en buffer
+* input actual del jugador
+
+Esta jerarquía evita conflictos y mantiene un comportamiento consistente.
+
+La histéresis se resuelve mediante la combinación de deadzone y buffer, reduciendo cambios bruscos de dirección y estabilizando el input.
+
+## Lista de secuencias
+
+Las secuencias dependen tanto de la dirección como del timing. El sistema permite encadenar ataques distintos según cómo y cuándo se introduce el input.
+
+Algunas combinaciones posibles incluyen:
+
+* neutral seguido de dirección hacia adelante
+* dirección lateral cambiando a la opuesta durante el combo
+* ataques repetidos en la misma dirección
+* combinación de ataque ligero y fuerte dentro de una ventana
 
 
 
-## Posibles *edge cases* encontrados
+## El sistema de locomoción permite controlar al personaje desde el inicio mediante joystick. El personaje puede alternar entre idle y movimiento, y rota de forma coherente según la dirección.
 
-Durante las pruebas se identificaron algunos comportamientos visuales o técnicos menores:
+Se tienen las siguientes características:
 
-* Mientras se apunta, el arma puede **clipear ligeramente con la mano** del segundo personaje.
-* El **sistema de lock-on** puede comportarse de forma extraña al **acercarse demasiado al enemigo**.
-* Existe **foot sliding** leve en la animación de **caminar hacia atrás mientras el personaje está agachado**.
-* Los **pies del personaje atraviesan ligeramente el suelo** al entrar en la pose de agachado.
-* En el ejecutable no se ven los gizmos por lo que es mas dificil saber donde estan impactando las balas.
+* movimiento relativo a la cámara
+* rotación alineada con la dirección de desplazamiento
+* integración con parámetros del Animator
 
-## Profundización realizada
-Lock On automatico, se puede activar y desactivar con el botón en la parte superior izquierda de la pantalla
+Durante los ataques, el movimiento se bloquea para evitar interferencias. Esto asegura que la locomoción no rompa el sistema de combate ni genere inconsistencias.
 
-## Personajes
+## Feedback de impacto
 
-### Personaje 1: XBot
+Se implementa un efecto de camera shake al impactar ataques, con variaciones según el tipo de ataque.
 
-Personaje equilibrado con **velocidad de movimiento y disparo estándar**.
-Al apuntar, la cámara se ubica directamente detrás del personaje, posicionándolo en el centro de la pantalla.
 
-### Personaje 2: Jef
+* ataques ligeros generan un shake más suave
+* ataques fuertes generan un shake más intenso
 
-Personaje pesado con **velocidad de movimiento y disparo reducida**.
-Presenta una animación de recoil más fuerte al disparar.
-Al apuntar, la **cámara se posiciona detrás del personaje pero desplazada hacia la derecha**, dejando al personaje ubicado en la parte izquierda de la pantalla.
+El efecto busca mejorar la sensación de impacto sin afectar la legibilidad ni el control.
 
-### Personaje 3: Rob
+## Limitaciones conocidas
 
-Personaje ligero con **velocidad de movimiento y disparo rápida**.
-La cámara se posiciona de forma similar a la de XBot, pero ligeramente más elevada, permitiendo que el personaje ocupe menos espacio en pantalla.
+El sistema presenta algunas limitaciones que no afectan su funcionamiento base pero sí su complejidad:
+
+* dependencia directa del Animator para ventanas y transiciones
+* falta de mecánicas avanzadas como cancelaciones
+
+* ## Video y flujo del animator
+  https://drive.google.com/file/d/19G7mcbSeudHYseEBQNDa8xA1Ru4CIkny/view?usp=sharing
+  
 
