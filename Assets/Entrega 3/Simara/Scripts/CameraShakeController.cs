@@ -7,17 +7,7 @@ public class CameraShakeController : MonoBehaviour
 
     public AnimationCurve curveLight; public AnimationCurve curveHeavy;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Shake(float customDuration, bool isLight)
     {
