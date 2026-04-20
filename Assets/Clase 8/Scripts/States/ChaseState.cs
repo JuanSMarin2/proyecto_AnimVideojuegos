@@ -2,37 +2,30 @@ using UnityEngine;
 
 public class ChaseState : State
 {
+    public ChaseState(EnemyAI enemy) : base(enemy)
+    {
+    }
 
-    private float idleTime = 2f;
-    private float timer;
+    public override void Enter()
+    {
+        enemy.agent.isStopped = false;
+        enemy.agent.speed = enemy.runSpeed;
+    }
 
-	public ChaseState(EnemyAI enemy) : base(enemy)
-	{
-	}
+    public override void Update()
+    {
+        if (enemy.player == null) return;
 
-public override void Enter()
+        enemy.agent.SetDestination(enemy.player.position);
+
+        if (!enemy.PlayerInRange(6f))
         {
-            timer = 0f;
-            enemy.agent.isStopped = true;
+            enemy.ChangeState(new IdleState(enemy));
         }
+    }
 
-        public override void Update()
-        {
-            timer += Time.deltaTime;
-
-            if (enemy.PlayerInRange(5f))
-            {
-                enemy.ChangeState(new ChaseState(enemy));
-                return;
-            }
-
-            if (timer >= idleTime)
-            {
-                enemy.ChangeState(new PatrolState(enemy));
-            }
-        }
-
-	public override void Exit()
-	{
-	}
+    public override void Exit()
+    {
+        throw new System.NotImplementedException();
+    }
 }
