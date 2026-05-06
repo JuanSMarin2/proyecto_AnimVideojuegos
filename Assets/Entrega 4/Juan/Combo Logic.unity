@@ -2553,7 +2553,7 @@ MonoBehaviour:
   angularSpeed: 720
   cameraTransform: {fileID: 0}
   rb: {fileID: 2029746904}
-  attackController: {fileID: 0}
+  attackController: {fileID: 1525387299}
 --- !u!1 &1953675864
 GameObject:
   m_ObjectHideFlags: 0
