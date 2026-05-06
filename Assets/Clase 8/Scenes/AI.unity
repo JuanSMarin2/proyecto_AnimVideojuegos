@@ -967,6 +967,7 @@ MonoBehaviour:
   runSpeed: 3.5
   rotationSmooth: 12
   animationSmooth: 10
+  defaultCombo: {fileID: 11400000, guid: d4b1b312d7cdc574f997c167efa9dd79, type: 2}
 --- !u!195 &706480081
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2095,6 +2096,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 706480082}
     m_Modifications:
+    - target: {fileID: 100020, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 100110, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
       propertyPath: m_Name
       value: Modeling_T-Pose_Grrrru_Man(recommend)
@@ -2143,10 +2148,24 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4f65042cc9f8ce14db85ecca3cc4cd41, type: 2}
+    - target: {fileID: 13700000, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f02b05926fb054e45b142dc2a29d258c, type: 2}
+    - target: {fileID: 13700000, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f02b05926fb054e45b142dc2a29d258c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100110, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1492303923}
+    - targetCorrespondingSourceObject: {fileID: 100110, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1492303922}
   m_SourcePrefab: {fileID: 100100000, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
 --- !u!4 &1492303919 stripped
 Transform:
@@ -2158,6 +2177,42 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
   m_PrefabInstance: {fileID: 1492303918}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1492303921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100110, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
+  m_PrefabInstance: {fileID: 1492303918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1492303922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492303921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a158fea32e962f459da92299795a00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1492303923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492303921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d665d1ec94d24688c036350d07d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  singleTrigger: Attack
+  chainParam: ControlWeight
+  chainThreshold: 0.01
+  exit: 0.93
+  pulseEvery: 0.02
+  attackLayerIndex: 0
 --- !u!1001 &1525387297
 PrefabInstance:
   m_ObjectHideFlags: 0

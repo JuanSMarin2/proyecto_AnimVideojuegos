@@ -10,6 +10,8 @@ namespace Clases.Clase_8.Scripts.States
         private ComboExecutor _executor;
         private float _cooldownTimer;
 
+        private float _reattackCooldown = 1.0f;
+
         public AttackState(EnemyAI enemy, ComboSequence combo) : base(enemy)
         {
             _combo = combo;
@@ -46,15 +48,44 @@ namespace Clases.Clase_8.Scripts.States
                 return;
             }
 
-            if (!_executor.IsBusy())
+         
+
+            var toPlayer = enemy.player.position - enemy.transform.position;
+            toPlayer.y = 0;
+            if (toPlayer.sqrMagnitude > 0.0001f)
             {
-                enemy.ChangeState(new ChaseState(enemy));
+                var look = Quaternion.LookRotation(toPlayer);
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, look, enemy.rotationSmooth * Time.deltaTime);
             }
+
+            if (!enemy.PlayerInRange(3.0f))
+            {
+                _executor?.Cancel();
+                enemy.ChangeState(new ChaseState(enemy));
+                return;
+            }
+
+               if (!_executor.IsBusy())
+            {
+                _cooldownTimer += Time.deltaTime;
+                if (_cooldownTimer >= _reattackCooldown  && enemy.PlayerInRange(2.2f))
+                {
+                    _cooldownTimer = 0f;
+                    _executor.PlayCombo(_combo);
+      
+                } else if(enemy.PlayerInRange(2.0f))
+                {
+                    _executor?.Cancel();
+                    enemy.ChangeState(new ChaseState(enemy));
+                }
+            }
+
         }
 
         public override void Exit()
         {
-            if (_executor != null) _executor.Cancel();
+           if(_agent != null) _agent.isStopped = false;
+            _executor?.Cancel();
         }
     }
 }
