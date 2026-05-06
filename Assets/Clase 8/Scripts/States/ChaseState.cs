@@ -54,6 +54,6 @@ private const float REPATH_EVERY = 0.15f;
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+      
     }
 }

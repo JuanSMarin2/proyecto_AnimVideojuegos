@@ -27,6 +27,7 @@ public override void Update()
     if (timer >= idleTime)
     {
         enemy.ChangeState(new PatrolState(enemy));
+        return;
     }
 }
 
