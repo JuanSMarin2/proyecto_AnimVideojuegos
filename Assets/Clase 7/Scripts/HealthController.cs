@@ -62,20 +62,26 @@ public class HealthController : MonoBehaviour
         deathRoutineRunning = true;
         isDead = true;
 
-        if (animator && IsInDamageState())
-        {
-            while (IsInDamageState())
-            {
-                yield return null;
-            }
-        }
-
         DisableMovement();
+        yield return WaitForAnimatorReady();
         TriggerDeathAnimation(lastHitDirection);
 
         yield return new WaitForSeconds(deathReloadDelay);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator WaitForAnimatorReady()
+    {
+        if (!animator)
+        {
+            yield break;
+        }
+
+        while (animator.IsInTransition(animatorLayerIndex) || IsInDamageState())
+        {
+            yield return null;
+        }
     }
 
     private bool IsInDamageState()
