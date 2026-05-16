@@ -38,8 +38,17 @@ public class DirectionalHitbox : MonoBehaviour
         {
             enemyAttack = other.GetComponentInParent<EnemyAttack>();
         }
+        if (!enemyAttack)
+        {
+            enemyAttack = other.transform.root.GetComponentInChildren<EnemyAttack>();
+        }
 
         if (!enemyAttack)
+        {
+            return;
+        }
+
+        if (!enemyAttack.IsAttacking)
         {
             return;
         }

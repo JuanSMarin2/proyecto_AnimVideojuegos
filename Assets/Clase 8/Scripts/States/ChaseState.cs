@@ -1,38 +1,59 @@
 using UnityEngine;
+using Clases.Clase_8.Scripts.States;
 
 public class ChaseState : State
 {
+private const float ATTACK_RANGE = 2.0f;
+private const float LOSE_TARGET = 6.0f;
 
-    private float idleTime = 2f;
-    private float timer;
+private float _repathTimer;
+private const float REPATH_EVERY = 0.15f;
 
-	public ChaseState(EnemyAI enemy) : base(enemy)
-	{
-	}
 
-public override void Enter()
+    public ChaseState(EnemyAI enemy) : base(enemy)
+    {
+    }
+
+    public override void Enter()
+    {
+        enemy.agent.isStopped = false;
+        enemy.agent.speed = enemy.runSpeed;
+        _repathTimer = 0f;
+    }
+
+    public override void Update()
+    {
+        if (enemy.player == null)
         {
-            timer = 0f;
-            enemy.agent.isStopped = true;
+            enemy.ChangeState(new IdleState(enemy));
+            return;
         }
 
-        public override void Update()
+        float dist = Vector3.Distance(enemy.transform.position, enemy.player.position);
+       
+        if (dist <= ATTACK_RANGE)
         {
-            timer += Time.deltaTime;
-
-            if (enemy.PlayerInRange(5f))
-            {
-                enemy.ChangeState(new ChaseState(enemy));
-                return;
-            }
-
-            if (timer >= idleTime)
-            {
-                enemy.ChangeState(new PatrolState(enemy));
-            }
+            enemy.ChangeState(new AttackState(enemy, enemy.defaultCombo));
+            return;
         }
 
-	public override void Exit()
-	{
-	}
+        if (dist > LOSE_TARGET)
+        {
+            enemy.ChangeState(new IdleState(enemy));
+            return;
+        }
+
+        _repathTimer += Time.deltaTime;
+
+    if (_repathTimer >= REPATH_EVERY || !enemy.agent.hasPath)
+        {
+            _repathTimer = 0f;
+            enemy.agent.SetDestination(enemy.player.position);
+        }
+    }
+
+    public override void Exit()
+    {
+      
+    }
 }

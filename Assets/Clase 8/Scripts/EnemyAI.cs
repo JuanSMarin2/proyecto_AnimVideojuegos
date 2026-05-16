@@ -1,3 +1,4 @@
+using Clases.Clase_8.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,6 +18,8 @@ public float rotationSmooth = 12.0f;
 public float animationSmooth = 10.0f;
 
 private int wayPointIndex = 0;
+
+public ComboSequence defaultCombo;
 
 static class Hash
     {

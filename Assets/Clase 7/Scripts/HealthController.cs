@@ -16,6 +16,8 @@ public class HealthController : MonoBehaviour
 
     [Header("Death")]
     [SerializeField] private float deathReloadDelay = 3f;
+    [SerializeField] private bool reloadSceneOnDeath = true;
+    [SerializeField] private bool notifyOnDeath = false;
     [SerializeField] private MonoBehaviour[] disableOnDeath;
     [SerializeField] private Rigidbody rootRigidbody;
     [SerializeField] private bool setKinematicOnDeath = true;
@@ -57,6 +59,27 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public void Heal(float amount)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        currentHealth = Mathf.Clamp(currentHealth + Mathf.Max(0f, amount), 0f, maxHealth);
+    }
+
+    public void HealPercent(float percent)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        float clampedPercent = Mathf.Clamp01(percent);
+        Heal(maxHealth * clampedPercent);
+    }
+
     private IEnumerator DeathSequence(HitDirection lastHitDirection)
     {
         deathRoutineRunning = true;
@@ -65,10 +88,15 @@ public class HealthController : MonoBehaviour
         DisableMovement();
         yield return WaitForAnimatorReady();
         TriggerDeathAnimation(lastHitDirection);
-
-        yield return new WaitForSeconds(deathReloadDelay);
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (notifyOnDeath)
+        {
+            SendMessage("EnemyDefeated", SendMessageOptions.DontRequireReceiver);
+        }
+        if (reloadSceneOnDeath)
+        {
+            yield return new WaitForSeconds(deathReloadDelay);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private IEnumerator WaitForAnimatorReady()
