@@ -5,7 +5,7 @@ public class VidaController : MonoBehaviour
 {
     public Image healthBar;
 
-    public float maxHealth = 100f;
+    public float maxHealth = 100f; //Este debe ser sacado del script PlayerHealth
     public float currentHealth;
 
     private float targetFill;

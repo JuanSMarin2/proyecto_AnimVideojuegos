@@ -14,13 +14,13 @@ public class PowerUpsVisibility : MonoBehaviour
     public Image imageP3;
 
     [Header("Configuración")]
-    protected float activeScaleMultiplier = 1.2f;
+    protected float activeScaleMultiplier = 1.4f;
 
     [Range(0f, 1f)]
     protected float inactiveAlpha = 0.15f;
 
     [Range(0f, 1f)]
-    protected float activeAlpha = 0.65f;
+    protected float activeAlpha = 0.9f;
 
     [Header("Velocidad de interpolación")]
     protected float smoothSpeed = 8f;

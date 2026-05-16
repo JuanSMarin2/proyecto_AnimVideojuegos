@@ -5,7 +5,7 @@ public class WaveCount : MonoBehaviour
 {
     public TMP_Text numWave;
 
-    public int currentWave = 0;
+    public int currentWave = 0; //El dato se saca del script que controla las oleadas
 
     void Start()
     {
