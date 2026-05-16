@@ -18,6 +18,12 @@
 public override void Update()
 {
     timer += Time.deltaTime;
+    if (enemy.IsMage && enemy.PlayerInShootRange())
+    {
+        enemy.ChangeState(new Clases.Clase_8.Scripts.States.ShootState(enemy));
+        return;
+    }
+
     if (enemy.PlayerInRange(5f))
     {
         enemy.ChangeState(new ChaseState(enemy));

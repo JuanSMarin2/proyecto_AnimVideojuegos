@@ -84,7 +84,7 @@ public class PlayerDamageReceiver : MonoBehaviour
 
     public void ReceiveHit(DamageInfo info)
     {
-        if (!healthController || healthController.IsDead)
+        if (!healthController || healthController.IsDead || healthController.IsDying)
         {
             return;
         }

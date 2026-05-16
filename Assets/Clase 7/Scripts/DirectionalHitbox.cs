@@ -21,6 +21,18 @@ public class DirectionalHitbox : MonoBehaviour
         damageReceiver = receiver;
     }
 
+    public void ReceiveProjectile(float damage, GameObject source)
+    {
+        if (!damageReceiver || damageReceiver.IsInvulnerable)
+        {
+            return;
+        }
+
+        float finalDamage = Mathf.Max(0f, damage) * Mathf.Max(0f, damageMultiplier);
+        DamageInfo info = new DamageInfo(finalDamage, direction, source);
+        damageReceiver.ReceiveHit(info);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag(enemyTag))

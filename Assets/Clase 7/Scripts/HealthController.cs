@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Clases.Clase_8.Scripts;
 using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
@@ -13,21 +14,30 @@ public class HealthController : MonoBehaviour
     [SerializeField] private int animatorLayerIndex = 0;
     [SerializeField] private string damageStateTag = "Damage";
     [SerializeField] private string[] damageStateNames;
+    [SerializeField] private string movementXParam = "SpeedX";
+    [SerializeField] private string movementYParam = "SpeedY";
+    [SerializeField] private bool forceCrossfadeOnDeath = false;
+    [SerializeField] private float deathCrossfadeDuration = 0.05f;
 
     [Header("Death")]
     [SerializeField] private float deathReloadDelay = 3f;
     [SerializeField] private bool reloadSceneOnDeath = true;
     [SerializeField] private bool notifyOnDeath = false;
+    [SerializeField] private bool disableCombatOnDeath = true;
+    [SerializeField] private bool resetMovementParamsOnDeath = true;
     [SerializeField] private MonoBehaviour[] disableOnDeath;
     [SerializeField] private Rigidbody rootRigidbody;
     [SerializeField] private bool setKinematicOnDeath = true;
 
     private bool isDead;
     private bool deathRoutineRunning;
+    private bool hasMovementXParam;
+    private bool hasMovementYParam;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
     public bool IsDead => isDead;
+    public bool IsDying => deathRoutineRunning;
 
     private void Awake()
     {
@@ -35,11 +45,17 @@ public class HealthController : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
+        if (!animator)
+        {
+            animator = GetComponentInChildren<Animator>(true);
+        }
 
         if (!rootRigidbody)
         {
             rootRigidbody = GetComponent<Rigidbody>();
         }
+
+        CacheAnimatorParams();
 
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
@@ -86,8 +102,19 @@ public class HealthController : MonoBehaviour
         isDead = true;
 
         DisableMovement();
-        yield return WaitForAnimatorReady();
-        TriggerDeathAnimation(lastHitDirection);
+        if (disableCombatOnDeath)
+        {
+            DisableCombat();
+        }
+        if (forceCrossfadeOnDeath)
+        {
+            TriggerDeathAnimation(lastHitDirection, true);
+        }
+        else
+        {
+            yield return WaitForAnimatorReady();
+            TriggerDeathAnimation(lastHitDirection, false);
+        }
         if (notifyOnDeath)
         {
             SendMessage("EnemyDefeated", SendMessageOptions.DontRequireReceiver);
@@ -141,7 +168,7 @@ public class HealthController : MonoBehaviour
         return false;
     }
 
-    private void TriggerDeathAnimation(HitDirection lastHitDirection)
+    private void TriggerDeathAnimation(HitDirection lastHitDirection, bool forceCrossfade)
     {
         if (!animator)
         {
@@ -150,11 +177,21 @@ public class HealthController : MonoBehaviour
 
         if (lastHitDirection == HitDirection.Back)
         {
-            animator.SetTrigger("DieBack");
+            animator.SetBool("DieBack", true);
+            animator.SetBool("Die", false);
+            if (forceCrossfade)
+            {
+                animator.CrossFade("DieBack", Mathf.Max(0f, deathCrossfadeDuration), animatorLayerIndex);
+            }
         }
         else
         {
-            animator.SetTrigger("Die");
+            animator.SetBool("Die", true);
+            animator.SetBool("DieBack", false);
+            if (forceCrossfade)
+            {
+                animator.CrossFade("Die", Mathf.Max(0f, deathCrossfadeDuration), animatorLayerIndex);
+            }
         }
     }
 
@@ -180,6 +217,74 @@ public class HealthController : MonoBehaviour
             if (setKinematicOnDeath)
             {
                 rootRigidbody.isKinematic = true;
+            }
+        }
+
+        if (animator && resetMovementParamsOnDeath)
+        {
+            if (hasMovementXParam)
+            {
+                animator.SetFloat(movementXParam, 0f);
+            }
+
+            if (hasMovementYParam)
+            {
+                animator.SetFloat(movementYParam, 0f);
+            }
+        }
+    }
+
+    private void DisableCombat()
+    {
+        EnemyAI enemyAI = GetComponentInParent<EnemyAI>();
+        if (!enemyAI)
+        {
+            enemyAI = GetComponentInChildren<EnemyAI>();
+        }
+
+        if (enemyAI)
+        {
+            enemyAI.CancelScheduledFireball();
+            enemyAI.enabled = false;
+        }
+
+        EnemyAttack enemyAttack = GetComponentInParent<EnemyAttack>();
+        if (!enemyAttack)
+        {
+            enemyAttack = GetComponentInChildren<EnemyAttack>();
+        }
+
+        if (enemyAttack)
+        {
+            enemyAttack.enabled = false;
+        }
+
+        ComboExecutor[] executors = GetComponentsInChildren<ComboExecutor>(true);
+        for (int i = 0; i < executors.Length; i++)
+        {
+            executors[i].enabled = false;
+        }
+    }
+
+    private void CacheAnimatorParams()
+    {
+        if (!animator)
+        {
+            return;
+        }
+
+        AnimatorControllerParameter[] parameters = animator.parameters;
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            string name = parameters[i].name;
+            if (!hasMovementXParam && name == movementXParam)
+            {
+                hasMovementXParam = true;
+            }
+
+            if (!hasMovementYParam && name == movementYParam)
+            {
+                hasMovementYParam = true;
             }
         }
     }

@@ -48,6 +48,13 @@ namespace Clases.Clase_8.Scripts.States
                 return;
             }
 
+            if (enemy.IsMage && enemy.PlayerInShootRange())
+            {
+                _executor?.Cancel();
+                enemy.ChangeState(new ShootState(enemy));
+                return;
+            }
+
          
 
             var toPlayer = enemy.player.position - enemy.transform.position;

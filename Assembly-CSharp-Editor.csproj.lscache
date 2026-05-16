@@ -50,6 +50,54 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
+Assets/N2Studio/Shaders/Nova/Editor/Core/Scripts/
+ AlphaTransitionBlendMode.cs
+ AlphaTransitionMapMode.cs
+ AlphaTransitionMode.cs
+ BaseMapMode.cs
+ ColorChannels.cs
+ ColorCorrectionMode.cs
+ CustomCoord.cs
+ EmissionAreaType.cs
+ EmissionColorType.cs
+ EmissionMapMode.cs
+ FlowMapTarget.cs
+ LitWorkflowMode.cs
+ MaterialEditorUtility.cs
+ MaterialPropertyNames.cs
+ Optimizer/
+  Internal/OptimizedShaderUtillity.cs
+  OptimizedShaderGenerator.cs
+  OptimizedShaderReplacer.cs
+  OptionalShaderPass.cs
+ ParallaxMapDefinition.cs
+ ParticlesDistortionGUI.cs
+ ParticlesDistortionMaterialPostProcessor.cs
+ ParticlesGUI.cs
+ ParticlesUberCommonGUI.cs
+ ParticlesUberCommonMaterialProperties.cs
+ ParticlesUberLitGUI.cs
+ ParticlesUberLitGUIBase.cs
+ ParticlesUberLitMaterialPostProcessor.cs
+ ParticlesUberUnlitGUI.cs
+ ParticlesUberUnlitGUIBase.cs
+ ParticlesUberUnlitMaterialPostProcessor.cs
+ RendererErrorHandler.cs
+ RenderFace.cs
+ RenderType.cs
+ ShaderKeywords.cs
+ TintAreaMode.cs
+ TintColorMode.cs
+ TransparentBlendMode.cs
+ UICustomCoord.cs
+ UIParticlesUberLitGUI.cs
+ UIParticlesUberUnlitGUI.cs
+ VertexAlphaMode.cs
+ ZTest.cs
+ ZWriteOverride.cs
+Assets/N2Studio/Shaders/Nova/Editor/Foundation/Scripts/
+ EditorPrefsProperty.cs
+ UnusedReferencesRemover.cs
 Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs
 Temp/obj/Assembly-CSharp-Editor/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 

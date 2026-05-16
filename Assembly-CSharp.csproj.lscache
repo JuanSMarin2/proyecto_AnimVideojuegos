@@ -64,6 +64,7 @@ Assets/Clase 7/Scripts/
  ChangeStatOnExit.cs
  DamageController.cs
  DirectionalHitbox.cs
+ DyingStateBehaviour.cs
  EnableRagdollOnExit.cs
  EnemyAttack.cs
  EnemyDamageReceiver.cs
@@ -82,6 +83,8 @@ Assets/Clase 7/Scripts/
 Assets/Clase 8/Scripts/
  ComboExecutor.cs
  EnemyAI.cs
+ FireBall.cs
+ MageShootStateBehaviour.cs
  PreventPlayerFall.cs
  State.cs
  States/
@@ -90,6 +93,8 @@ Assets/Clase 8/Scripts/
   ComboSequence.cs
   IdleState.cs
   PatrolState.cs
+  ScapeState.cs
+  ShootState.cs
 Assets/Entrega 2/
  Esteban/Scripts/CharacterCrouch.cs
  Juan/Scripts/CharacterManager.cs
@@ -101,7 +106,16 @@ Assets/Entrega 3/
   AttackController.cs
   CameraShakeController.cs
 Assets/
+ Entrega 4/Juan/Scripts/SwapCharacters.cs
  LockRootMotionY.cs
+ N2Studio/Shaders/Nova/Runtime/Core/Scripts/
+  ApplyDistortionPass.cs
+  ApplyDistortionPass_RenderGraph.cs
+  DeprecationMessage.cs
+  DistortedUvBufferPass.cs
+  DistortedUvBufferPass_RenderGraph.cs
+  DistortionContextItem_RenderGraph.cs
+  ScreenSpaceDistortion.cs
  RootMotionRedirect.cs
  Scripts/
   AimBasedOnBone.cs

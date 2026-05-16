@@ -26,6 +26,7 @@ public class EnemyDamageReceiver : MonoBehaviour
     private int damageBackHash;
     private int damageLeftHash;
     private int damageRightHash;
+    private EnemyAI enemyAI;
 
     public bool IsInvulnerable => invulnerable;
 
@@ -39,6 +40,15 @@ public class EnemyDamageReceiver : MonoBehaviour
         if (!healthController)
         {
             healthController = GetComponent<HealthController>();
+        }
+
+        if (!enemyAI)
+        {
+            enemyAI = GetComponentInParent<EnemyAI>();
+            if (!enemyAI)
+            {
+                enemyAI = GetComponentInChildren<EnemyAI>();
+            }
         }
 
         damageFrontHash = Animator.StringToHash(damageFrontTrigger);
@@ -68,7 +78,7 @@ public class EnemyDamageReceiver : MonoBehaviour
 
     public void ReceiveHit(DamageInfo info)
     {
-        if (!healthController || healthController.IsDead)
+        if (!healthController || healthController.IsDead || healthController.IsDying)
         {
             return;
         }
@@ -81,6 +91,10 @@ public class EnemyDamageReceiver : MonoBehaviour
         invulnerable = true;
         TriggerDamageAnimation(info.Direction);
         healthController.ApplyDamage(info);
+        if (enemyAI)
+        {
+            enemyAI.NotifyHit();
+        }
 
         if (invulnerabilityRoutine != null)
         {
