@@ -4144,8 +4144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64157c417be97a469a74505f6dbfbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  currentHealth: 20
+  maxHealth: 40
+  currentHealth: 40
   animator: {fileID: 475299862}
   animatorLayerIndex: 0
   damageStateTag: Damage
@@ -4172,6 +4172,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 475299862}
   healthController: {fileID: 1953675868}
+  damageFrontTrigger: Front
+  damageBackTrigger: Back
+  damageLeftTrigger: Left
+  damageRightTrigger: Right
   hitboxes: []
   invulnerabilityDuration: 0.5
 --- !u!114 &1953675870
