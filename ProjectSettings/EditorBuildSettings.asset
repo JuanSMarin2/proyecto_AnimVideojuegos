@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Entrega 2/Juan/Entrega 2.unity
+    guid: a2d12470f65100547b9df4eb991950ae
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 4093602e646b1f24f8db9387f3cf8503, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2d01e4a94f88b3b4f9825f1b412c2957, type: 3}
