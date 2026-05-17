@@ -2580,8 +2580,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64157c417be97a469a74505f6dbfbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 90
-  currentHealth: 90
+  maxHealth: 100
+  currentHealth: 100
+  isPlayer: 1
   animator: {fileID: 265938070}
   animatorLayerIndex: 0
   damageStateTag: Damage
@@ -14151,6 +14152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  isPlayer: 1
   animator: {fileID: 1854449910}
   animatorLayerIndex: 0
   damageStateTag: Damage

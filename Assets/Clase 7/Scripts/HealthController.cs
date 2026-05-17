@@ -8,6 +8,7 @@ public class HealthController : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth = 100f;
+    [SerializeField] private bool isPlayer = false;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;
@@ -33,6 +34,8 @@ public class HealthController : MonoBehaviour
     private bool deathRoutineRunning;
     private bool hasMovementXParam;
     private bool hasMovementYParam;
+    private static float sharedPlayerHealth;
+    private static bool sharedPlayerHealthSet;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -57,7 +60,35 @@ public class HealthController : MonoBehaviour
 
         CacheAnimatorParams();
 
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        SetCurrentHealth(currentHealth);
+    }
+
+    private void OnEnable()
+    {
+        if (isPlayer && !sharedPlayerHealthSet)
+        {
+            sharedPlayerHealth = currentHealth;
+            sharedPlayerHealthSet = true;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isPlayer)
+        {
+            return;
+        }
+
+        // Keep all player health values in sync each frame.
+        if (!sharedPlayerHealthSet)
+        {
+            sharedPlayerHealth = currentHealth;
+            sharedPlayerHealthSet = true;
+        }
+        else if (!Mathf.Approximately(currentHealth, sharedPlayerHealth))
+        {
+            currentHealth = sharedPlayerHealth;
+        }
     }
 
     public void ApplyDamage(DamageInfo info)
@@ -67,7 +98,7 @@ public class HealthController : MonoBehaviour
             return;
         }
 
-        currentHealth = Mathf.Clamp(currentHealth - info.Amount, 0f, maxHealth);
+        SetCurrentHealth(currentHealth - info.Amount);
 
         if (currentHealth <= 0f && !deathRoutineRunning)
         {
@@ -82,7 +113,7 @@ public class HealthController : MonoBehaviour
             return;
         }
 
-        currentHealth = Mathf.Clamp(currentHealth + Mathf.Max(0f, amount), 0f, maxHealth);
+        SetCurrentHealth(currentHealth + Mathf.Max(0f, amount));
     }
 
     public void HealPercent(float percent)
@@ -94,6 +125,18 @@ public class HealthController : MonoBehaviour
 
         float clampedPercent = Mathf.Clamp01(percent);
         Heal(maxHealth * clampedPercent);
+    }
+
+    private void SetCurrentHealth(float value)
+    {
+        float clamped = Mathf.Clamp(value, 0f, maxHealth);
+        currentHealth = clamped;
+
+        if (isPlayer)
+        {
+            sharedPlayerHealth = clamped;
+            sharedPlayerHealthSet = true;
+        }
     }
 
     private IEnumerator DeathSequence(HitDirection lastHitDirection)
