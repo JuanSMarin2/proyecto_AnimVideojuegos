@@ -1806,8 +1806,8 @@ GameObject:
   - component: {fileID: 979018155}
   - component: {fileID: 979018154}
   - component: {fileID: 979018160}
-  - component: {fileID: 979018159}
   - component: {fileID: 979018158}
+  - component: {fileID: 979018161}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1918,11 +1918,21 @@ MonoBehaviour:
   imageP1: {fileID: 1300685644}
   imageP2: {fileID: 2081664099}
   imageP3: {fileID: 1966556105}
-  activeScaleMultiplier: 1.2
-  inactiveAlpha: 0.7
-  activeAlpha: 1
-  smoothSpeed: 8
---- !u!114 &979018159
+--- !u!114 &979018160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979018153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81c5f764835b7742ab25eb2c421efd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numWave: {fileID: 1810069191}
+  currentWave: 0
+--- !u!114 &979018161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1938,20 +1948,6 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   smoothSpeed: 5
---- !u!114 &979018160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979018153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81c5f764835b7742ab25eb2c421efd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numWave: {fileID: 1810069191}
-  currentWave: 0
 --- !u!1 &983746479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100112, guid: 43992d4f16e57574fa5d16ef485c0cbd, type: 3}
@@ -2413,7 +2409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e912528a4f96386428a161e7ac897dc0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3730,7 +3726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 75ba8a55127e6f74fb2264945a487f2b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4023,7 +4019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4dae643c5cfa6ea43971cd1692976a54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
