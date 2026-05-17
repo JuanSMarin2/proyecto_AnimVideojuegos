@@ -3,43 +3,32 @@ using UnityEngine.UI;
 
 public class VidaController : MonoBehaviour
 {
+    [Header("Referencias")]
+    protected HealthController playerHealth; //Necesista HealthController en la otra rama
+
+    [Header("UI")]
     public Image healthBar;
 
-    public float maxHealth = 100f; //Este debe ser sacado del script PlayerHealth
-    public float currentHealth;
+    [Header("Suavizado")]
+    protected float smoothSpeed = 5f;
 
     private float targetFill;
 
-    public float smoothSpeed = 5f;
-
-    void Start()
-    {
-        currentHealth = maxHealth;
-        targetFill = 1f;
-    }
-
     void Update()
     {
+        if (playerHealth == null)
+            return;
+
+        // Obtener porcentaje de vida REAL
+        targetFill =
+            playerHealth.CurrentHealth /
+            playerHealth.MaxHealth;
+
         // Interpolación suave
         healthBar.fillAmount = Mathf.Lerp(
             healthBar.fillAmount,
             targetFill,
             Time.deltaTime * smoothSpeed
         );
-
-        // TEST
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(20);
-        }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-        targetFill = currentHealth / maxHealth;
     }
 }
