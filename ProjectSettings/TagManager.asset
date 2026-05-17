@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Floor
+  - PlayerAttack
+  - Obstacle
+  - PlayerTarget
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Ground
   - DamageHitbox
   - Ragdoll
-  - Player
+  - 
   - 
   - 
   - 

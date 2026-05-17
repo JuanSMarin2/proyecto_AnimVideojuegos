@@ -19,20 +19,24 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
 
     private Rigidbody rb;
 
-    [SerializeField] private float moveSpeed = 5f;
+   [SerializeField] private float moveSpeed = 5f;
+    private float currentMoveSpeed;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _speedXHash = Animator.StringToHash("SpeedX");
         _speedYHash = Animator.StringToHash("SpeedY");
+
+        currentMoveSpeed = moveSpeed;
     }
+
     private void MoveCharacter()
     {
         Vector3 moveDirection = new Vector3(speedX.CurrentValue, 0, speedY.CurrentValue);
         moveDirection = Quaternion.Euler(0, camera.transform.eulerAngles.y, 0) * moveDirection;
 
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position += moveDirection * currentMoveSpeed * Time.deltaTime;
     }
 
     private void SolveCharacterRotation()
@@ -48,34 +52,37 @@ public class CharacterMovement : MonoBehaviour, ICharacterComponent
         Debug.DrawLine(transform.position, transform.position + characterForward * 3, Color.green, 5);
         targetRotation = Quaternion.LookRotation(characterForward, floorNormal);
 
-
     }
-    private void FixedUpdate()
-    {
-        Vector3 moveDirection = new Vector3(speedX.CurrentValue, 0, speedY.CurrentValue);
-        moveDirection = Quaternion.Euler(0, camera.transform.eulerAngles.y, 0) * moveDirection;
-
-        rb.linearVelocity = new Vector3(
-            moveDirection.x * moveSpeed,
-            rb.linearVelocity.y,
-            moveDirection.z * moveSpeed
-        );
-    }
-
-
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        if(ParentCharacter.IsEmoting) return;
         Vector2 inputValue = ctx.ReadValue<Vector2>();
         speedX.TargetValue = inputValue.x;
         speedY.TargetValue = inputValue.y;
+
     }
 
     private void Update()
     {
+
+        if (ParentCharacter.IsEmoting)
+        {
+            speedX.TargetValue = 0;
+            speedY.TargetValue = 0;
+        }
+
         speedX.Update();
         speedY.Update();
-        _animator.SetFloat(_speedXHash, speedX.CurrentValue);
-        _animator.SetFloat(_speedYHash, speedY.CurrentValue);
+
+
+        currentMoveSpeed = ParentCharacter.IsCrouching ? moveSpeed/2 : moveSpeed;
+        float animMultiplier = ParentCharacter.IsCrouching ? .8f : 1f;
+
+        MoveCharacter();
+
+        _animator.SetFloat(_speedXHash, speedX.CurrentValue * animMultiplier);
+        _animator.SetFloat(_speedYHash, speedY.CurrentValue * animMultiplier);
+
 
         SolveCharacterRotation();
 

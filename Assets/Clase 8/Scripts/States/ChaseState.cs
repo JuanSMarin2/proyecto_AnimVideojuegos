@@ -29,6 +29,12 @@ private const float REPATH_EVERY = 0.15f;
             return;
         }
 
+        if (enemy.IsMage && enemy.PlayerInShootRange())
+        {
+            enemy.ChangeState(new Clases.Clase_8.Scripts.States.ShootState(enemy));
+            return;
+        }
+
         float dist = Vector3.Distance(enemy.transform.position, enemy.player.position);
        
         if (dist <= ATTACK_RANGE)
