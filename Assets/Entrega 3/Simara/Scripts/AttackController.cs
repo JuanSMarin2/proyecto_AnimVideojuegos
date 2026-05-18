@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemPlayerInput = UnityEngine.InputSystem.PlayerInput;
@@ -21,6 +22,11 @@ public class AttackController : MonoBehaviour
 
     [SerializeField] private float ligthCost = 15f;
     [SerializeField] private float heavyCost = 35f;
+
+    [Header("Attack Damage")]
+    [SerializeField] private float playerAttack = 10f;
+    [SerializeField] private float heavyDamageMultiplier = 2f;
+    [SerializeField] private PlayerAttackSource[] initialAttackSources;
 
     [SerializeField] private bool isLight;
 
@@ -48,6 +54,10 @@ public class AttackController : MonoBehaviour
     private AttackDirection comboWindowDirection = AttackDirection.Neutral;
     private bool hasComboWindowDirection;
     private int locomotionStateHash;
+    private readonly List<PlayerAttackSource> attackSources = new List<PlayerAttackSource>();
+
+    public float PlayerAttack => playerAttack;
+    public bool IsLightAttack => isLight;
 
     public bool IsMovementLocked => lockMovementDuringAttack && isInAttackMode;
 
@@ -58,12 +68,20 @@ public class AttackController : MonoBehaviour
         inputSystemPlayerInput = GetComponent<InputSystemPlayerInput>();
         locomotionStateHash = Animator.StringToHash(locomotionStateName);
 
+        if (initialAttackSources == null || initialAttackSources.Length == 0)
+        {
+            initialAttackSources = GetComponentsInChildren<PlayerAttackSource>();
+        }
+
+        RegisterInitialSources();
+
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
         }
 
         ResolveMoveAction();
+        UpdateAttackSources();
     }
 
     private void OnEnable()
@@ -110,6 +128,9 @@ public class AttackController : MonoBehaviour
             if (Game.Instance.PlayerOne.CurrentStamina > 0)
             {
                 Game.Instance.PlayerOne.DepleteStamina(ligthCost);
+                isLight = true;
+                SetAttackSourcesActive(true);
+                UpdateAttackSources();
                 BeginAttackMode();
                 RotateCharacterToBufferedDirection();
                 animator.SetTrigger("Attack");
@@ -126,6 +147,9 @@ public class AttackController : MonoBehaviour
             if (Game.Instance.PlayerOne.CurrentStamina > 0)
             {
                 Game.Instance.PlayerOne.DepleteStamina(heavyCost);
+                isLight = false;
+                SetAttackSourcesActive(true);
+                UpdateAttackSources();
                 BeginAttackMode();
                 RotateCharacterToBufferedDirection();
                 animator.SetTrigger("HeavyAttack");
@@ -139,12 +163,74 @@ public class AttackController : MonoBehaviour
 
     public void OnLightAttackHit()
     {
-        cameraShake.Shake(1f, isLight = true);
+        isLight = true;
+        SetAttackSourcesActive(true);
+        UpdateAttackSources();
+        cameraShake.Shake(1f, isLight);
     }
 
     public void OnHeavyAttackHit()
     {
-        cameraShake.Shake(1.3f, isLight = false);
+        isLight = false;
+        SetAttackSourcesActive(true);
+        UpdateAttackSources();
+        cameraShake.Shake(1.3f, isLight);
+    }
+
+    public float GetAttackDamage()
+    {
+        float multiplier = isLight ? 1f : Mathf.Max(1f, heavyDamageMultiplier);
+        return playerAttack * multiplier;
+    }
+
+    public void SetAttackWindowActive(bool active)
+    {
+        if (active)
+        {
+            UpdateAttackSources();
+        }
+
+        SetAttackSourcesActive(active);
+    }
+
+    private void UpdateAttackSources()
+    {
+        if (attackSources.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < attackSources.Count; i++)
+        {
+            PlayerAttackSource source = attackSources[i];
+            if (!source)
+            {
+                continue;
+            }
+
+            source.SetBaseDamage(playerAttack);
+            source.SetHeavyMultiplier(heavyDamageMultiplier);
+            source.SetHeavy(!isLight);
+        }
+    }
+
+    private void SetAttackSourcesActive(bool active)
+    {
+        if (attackSources.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < attackSources.Count; i++)
+        {
+            PlayerAttackSource source = attackSources[i];
+            if (!source)
+            {
+                continue;
+            }
+
+            source.SetActive(active);
+        }
     }
 
     public void BeginAttackMode()
@@ -157,6 +243,47 @@ public class AttackController : MonoBehaviour
     {
         isInAttackMode = false;
         hasExitedLocomotionSinceAttack = false;
+        SetAttackSourcesActive(false);
+    }
+
+    public void RegisterAttackSource(PlayerAttackSource source)
+    {
+        if (!source || attackSources.Contains(source))
+        {
+            return;
+        }
+
+        attackSources.Add(source);
+        UpdateAttackSources();
+    }
+
+    public void UnregisterAttackSource(PlayerAttackSource source)
+    {
+        if (!source)
+        {
+            return;
+        }
+
+        attackSources.Remove(source);
+    }
+
+    private void RegisterInitialSources()
+    {
+        if (initialAttackSources == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < initialAttackSources.Length; i++)
+        {
+            PlayerAttackSource source = initialAttackSources[i];
+            if (!source)
+            {
+                continue;
+            }
+
+            RegisterAttackSource(source);
+        }
     }
 
     private bool IsInLocomotionState()
