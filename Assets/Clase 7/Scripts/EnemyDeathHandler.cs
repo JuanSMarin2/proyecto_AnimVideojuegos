@@ -16,6 +16,10 @@ public class EnemyDeathHandler : MonoBehaviour
 
     private bool defeated;
 
+
+    public static System.Action OnEnemyDeath; // esteban
+
+
     private void Awake()
     {
         if (!rootToDisable)
@@ -37,6 +41,9 @@ public class EnemyDeathHandler : MonoBehaviour
         }
 
         defeated = true;
+
+        OnEnemyDeath?.Invoke(); // esteban
+
         TrySpawnDrop();
         StartCoroutine(DisableRootAfterDelay());
     }
