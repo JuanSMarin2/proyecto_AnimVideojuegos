@@ -2,26 +2,44 @@ using UnityEngine;
 
 public class BerserkDecorator : PowerUpDecorator
 {
-    [SerializeField] private float animatorMultiplier = 1.5f;
+    [SerializeField] private float damageMultiplier = 1.5f;
 
-    private Animator animator;
+    private PlayerAttackSource[] attackSources;
 
-    private float originalSpeed;
+    private float[] originalDamages;
+
+    private Renderer[] renderers;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        attackSources = GetComponentsInChildren<PlayerAttackSource>();
+
+        renderers = GetComponentsInChildren<Renderer>();
+
+        originalDamages = new float[attackSources.Length];
     }
 
     public override void Apply()
     {
         Debug.Log("BERSERK ACTIVADO");
 
-        if (animator != null)
+        for (int i = 0; i < attackSources.Length; i++)
         {
-            originalSpeed = animator.speed;
+            PlayerAttackSource source = attackSources[i];
 
-            animator.speed *= animatorMultiplier;
+            float currentDamage = source.GetDamage();
+
+            originalDamages[i] = currentDamage;
+
+            source.SetBaseDamage(currentDamage * damageMultiplier);
+        }
+
+        foreach(Renderer rend in renderers)
+        {
+            if(rend.material.HasProperty("_EmissionColor"))
+            {
+                rend.material.EnableKeyword("_EMISSION");
+            }
         }
     }
 
@@ -29,9 +47,17 @@ public class BerserkDecorator : PowerUpDecorator
     {
         Debug.Log("BERSERK TERMINADO");
 
-        if (animator != null)
+        for (int i = 0; i < attackSources.Length; i++)
         {
-            animator.speed = originalSpeed;
+            attackSources[i].SetBaseDamage(originalDamages[i]);
+        }
+
+        foreach(Renderer rend in renderers)
+        {
+            if(rend.material.HasProperty("_EmissionColor"))
+            {
+                rend.material.DisableKeyword("_EMISSION");
+            }
         }
     }
 }

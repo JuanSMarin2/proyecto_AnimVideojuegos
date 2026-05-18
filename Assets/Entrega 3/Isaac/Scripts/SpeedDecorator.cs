@@ -11,17 +11,24 @@ public class SpeedDecorator : PowerUpDecorator
 
     private FieldInfo moveSpeedField;
 
-    private void Awake()
+    public override void Apply()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
+
+        if(playerMovement == null)
+        {
+            Debug.LogError("No se encontró PlayerMovement");
+            return;
+        }
 
         moveSpeedField = typeof(PlayerMovement)
             .GetField("moveSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-    }
 
-    public override void Apply()
-    {
-        if (moveSpeedField == null) return;
+        if(moveSpeedField == null)
+        {
+            Debug.LogError("No se encontró moveSpeed");
+            return;
+        }
 
         originalSpeed = (float)moveSpeedField.GetValue(playerMovement);
 
@@ -29,15 +36,19 @@ public class SpeedDecorator : PowerUpDecorator
             playerMovement,
             originalSpeed * multiplier
         );
+
+        Debug.Log("SPEED BOOST ACTIVADO");
     }
 
     public override void Remove()
     {
-        if (moveSpeedField == null) return;
+        if(playerMovement == null || moveSpeedField == null)
+        {
+            return;
+        }
 
-        moveSpeedField.SetValue(
-            playerMovement,
-            originalSpeed
-        );
+        moveSpeedField.SetValue(playerMovement, originalSpeed);
+
+        Debug.Log("SPEED BOOST TERMINADO");
     }
 }
