@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class VidaController : MonoBehaviour
 {
     [Header("Referencias")]
-    protected HealthController playerHealth; //Necesista HealthController en la otra rama
+    [SerializeField]
+    private HealthController playerHealth; 
 
     [Header("UI")]
     public Image healthBar;
@@ -19,12 +20,12 @@ public class VidaController : MonoBehaviour
         if (playerHealth == null)
             return;
 
-        // Obtener porcentaje de vida REAL
+      
         targetFill =
             playerHealth.CurrentHealth /
             playerHealth.MaxHealth;
 
-        // Interpolación suave
+        // Interpolaciï¿½n suave
         healthBar.fillAmount = Mathf.Lerp(
             healthBar.fillAmount,
             targetFill,
