@@ -20,6 +20,16 @@ public class PowerUpPickup : MonoBehaviour
                 return;
             }
 
+            PowerUpDecorator existing =
+                targetMovement.GetComponent(powerUpPrefab.GetType()) as PowerUpDecorator;
+
+            if (existing != null)
+            {
+                existing.Refresh();
+                Destroy(gameObject);
+                return;
+            }
+
             PowerUpDecorator powerUp =
                 targetMovement.gameObject.AddComponent(
                     powerUpPrefab.GetType()
@@ -35,8 +45,15 @@ public class PowerUpPickup : MonoBehaviour
 
     private PlayerMovement FindActivePlayerMovement(Collider other)
     {
+        Transform searchRoot = FindPlayerRoot(other.transform);
+
+        if (searchRoot == null)
+        {
+            searchRoot = other.transform.root;
+        }
+
         PlayerMovement[] movements =
-            other.GetComponentsInChildren<PlayerMovement>(true);
+            searchRoot.GetComponentsInChildren<PlayerMovement>(true);
 
         foreach (PlayerMovement movement in movements)
         {
@@ -44,6 +61,53 @@ public class PowerUpPickup : MonoBehaviour
             {
                 return movement;
             }
+        }
+
+        PlayerMovement[] allMovements =
+            FindObjectsOfType<PlayerMovement>(true);
+
+        PlayerMovement closest = null;
+        float closestDistance = float.MaxValue;
+
+        for (int i = 0; i < allMovements.Length; i++)
+        {
+            PlayerMovement movement = allMovements[i];
+            if (movement == null || !movement.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(
+                other.transform.position,
+                movement.transform.position
+            );
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closest = movement;
+            }
+        }
+
+        if (closest != null)
+        {
+            return closest;
+        }
+
+        return null;
+    }
+
+    private Transform FindPlayerRoot(Transform source)
+    {
+        Transform current = source;
+        while (current != null)
+        {
+            if (current.CompareTag("Player"))
+            {
+                return current;
+            }
+
+            current = current.parent;
         }
 
         return null;

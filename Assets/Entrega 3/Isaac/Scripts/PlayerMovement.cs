@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private AttackController attackController;
+    [SerializeField] private PlayerStatsContext statsContext;
     private Animator animator;
 
     private Vector2 moveInput;
@@ -34,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         if (attackController == null)
         {
             attackController = GetComponent<AttackController>();
+        }
+
+        if (statsContext == null)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
         }
 
         speedXHash = Animator.StringToHash("SpeedX");
@@ -75,10 +81,26 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = GetCameraRelativeMoveDirection();
 
         rb.linearVelocity = new Vector3(
-            moveDirection.x * moveSpeed,
+            moveDirection.x * GetCurrentMoveSpeed(),
             rb.linearVelocity.y,
-            moveDirection.z * moveSpeed
+            moveDirection.z * GetCurrentMoveSpeed()
         );
+    }
+
+    private float GetCurrentMoveSpeed()
+    {
+        if (statsContext == null)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
+        }
+
+        float multiplier = 1f;
+        if (statsContext != null && statsContext.CurrentStats != null)
+        {
+            multiplier = statsContext.CurrentStats.MoveSpeedMultiplier;
+        }
+
+        return moveSpeed * Mathf.Max(0f, multiplier);
     }
 
     private void SolveRotation()

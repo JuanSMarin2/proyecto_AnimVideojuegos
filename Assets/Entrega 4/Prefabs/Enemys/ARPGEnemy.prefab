@@ -613,23 +613,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8669692037794319562}
   player: {fileID: 0}
-  wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  playerTarget: {fileID: 0}
   animator: {fileID: 1174734000594221855}
   walkSpeed: 2
   runSpeed: 3.5
   rotationSmooth: 12
   animationSmooth: 10
   defaultCombo: {fileID: 11400000, guid: d4b1b312d7cdc574f997c167efa9dd79, type: 2}
+  hitsToEscape: 2
+  escapeDuration: 1
+  escapeDistance: 4
   isMage: 0
+  isMageBoss: 0
+  isFinalBoss: 0
   shootRange: 8
   fireBallPrefab: {fileID: 0}
   fireBallSpawn: {fileID: 0}
   fireBallSpawnHeightOffset: 0
   fireBallForce: 12
   shootCooldown: 3
+  bossSpreadAngle: 20
+  finalBossSpreadAngle: 20
+  shootPitchOffset: 10
   shootDelay: 0.5
+  playerTag: Player
+  playerTargetTag: PlayerTarget
 --- !u!114 &3838640186477652375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,14 +652,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   currentHealth: 20
+  isPlayer: 0
   animator: {fileID: 1174734000594221855}
   animatorLayerIndex: 0
   damageStateTag: Damage
   damageStateNames: []
+  movementXParam: SpeedX
+  movementYParam: SpeedY
+  forceCrossfadeOnDeath: 0
+  deathCrossfadeDuration: 0.05
   deathReloadDelay: 3
   reloadSceneOnDeath: 0
   notifyOnDeath: 1
   disableCombatOnDeath: 1
+  resetMovementParamsOnDeath: 1
   disableOnDeath:
   - {fileID: 7445162535677697653}
   - {fileID: 3329457794629377874}
@@ -694,7 +708,9 @@ MonoBehaviour:
   disableDelay: 5
   dropSpawnPoint: {fileID: 8763375339974573833}
   dropPrefabs:
-  - {fileID: 8263754676077406280, guid: 2fa4ae9ee2952e64da11f05c0f1d7cee, type: 3}
+  - {fileID: 8532223260401475594, guid: a8e247730e08aeb4a89f089291f5e325, type: 3}
+  - {fileID: 7078145308722122809, guid: a8b2786522ff90443826bb11419d4680, type: 3}
+  - {fileID: 8279790486820238059, guid: 5fa3ac6a4af1b83429b55805f1e2f63a, type: 3}
   healerPrefab: {fileID: 8263754676077406280, guid: 2fa4ae9ee2952e64da11f05c0f1d7cee, type: 3}
   dropChance: 0.5
   healerChance: 0.7

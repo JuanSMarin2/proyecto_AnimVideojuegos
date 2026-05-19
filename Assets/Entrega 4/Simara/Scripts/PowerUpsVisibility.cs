@@ -1,19 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PowerUpsVisibility : MonoBehaviour
 {
+    [Header("Referencias")]
+    [SerializeField]
+    private PlayerMovement[] playerMovements;
+
     [Header("Estados")]
     public bool P1;
     public bool P2;
     public bool P3;
 
-    [Header("Imágenes")]
+    [Header("Imï¿½genes")]
     public Image imageP1;
     public Image imageP2;
     public Image imageP3;
 
-    [Header("Configuración")]
+    [Header("Timer")]
+    public TMP_Text berserkText;
+    public TMP_Text shieldText;
+    public TMP_Text speedText;
+    [SerializeField]
+    private string timerFormat = "{0}/{1}";
+
+    [Header("Configuraciï¿½n")]
     protected float activeScaleMultiplier = 1.4f;
 
     [Range(0f, 1f)]
@@ -22,7 +34,7 @@ public class PowerUpsVisibility : MonoBehaviour
     [Range(0f, 1f)]
     protected float activeAlpha = 0.9f;
 
-    [Header("Velocidad de interpolación")]
+    [Header("Velocidad de interpolaciï¿½n")]
     protected float smoothSpeed = 8f;
 
     private Vector3 p1OriginalScale;
@@ -34,23 +46,81 @@ public class PowerUpsVisibility : MonoBehaviour
         p1OriginalScale = imageP1.rectTransform.localScale;
         p2OriginalScale = imageP2.rectTransform.localScale;
         p3OriginalScale = imageP3.rectTransform.localScale;
+
+        if (playerMovements == null || playerMovements.Length == 0)
+        {
+            playerMovements = FindObjectsOfType<PlayerMovement>(true);
+        }
     }
 
     void Update()
     {
+        PlayerMovement activeMovement = GetActivePlayerMovement();
+
+        BerserkDecorator berserk =
+            activeMovement ? activeMovement.GetComponent<BerserkDecorator>() : null;
+        ShieldDecorator shield =
+            activeMovement ? activeMovement.GetComponent<ShieldDecorator>() : null;
+        SpeedDecorator speed =
+            activeMovement ? activeMovement.GetComponent<SpeedDecorator>() : null;
+
+        P1 = berserk != null && berserk.IsActive;
+        P2 = shield != null && shield.IsActive;
+        P3 = speed != null && speed.IsActive;
+
         AnimateImage(imageP1, P1, p1OriginalScale);
         AnimateImage(imageP2, P2, p2OriginalScale);
         AnimateImage(imageP3, P3, p3OriginalScale);
 
-        // TEST
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            P1 = !P1;
+        UpdateTimerText(berserkText, berserk);
+        UpdateTimerText(shieldText, shield);
+        UpdateTimerText(speedText, speed);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            P2 = !P2;
+    private PlayerMovement GetActivePlayerMovement()
+    {
+        if (playerMovements == null || playerMovements.Length == 0)
+        {
+            return null;
+        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            P3 = !P3;
+        for (int i = 0; i < playerMovements.Length; i++)
+        {
+            PlayerMovement movement = playerMovements[i];
+            if (movement && movement.gameObject.activeInHierarchy)
+            {
+                return movement;
+            }
+        }
+
+        return null;
+    }
+
+    private void UpdateTimerText(
+        TMP_Text targetText,
+        PowerUpDecorator powerUp)
+    {
+        if (targetText == null)
+        {
+            return;
+        }
+
+        if (powerUp == null || !powerUp.IsActive)
+        {
+            targetText.text = string.Empty;
+            return;
+        }
+
+        int remaining = Mathf.CeilToInt(powerUp.RemainingTime);
+        int duration = Mathf.CeilToInt(powerUp.Duration);
+
+        if (remaining <= 0)
+        {
+            targetText.text = string.Empty;
+            return;
+        }
+
+        targetText.text = string.Format(timerFormat, remaining, duration);
     }
 
     void AnimateImage(Image img, bool state, Vector3 originalScale)
@@ -60,7 +130,7 @@ public class PowerUpsVisibility : MonoBehaviour
             ? originalScale * activeScaleMultiplier
             : originalScale;
 
-        // Interpolación de escala
+        // Interpolaciï¿½n de escala
         img.rectTransform.localScale = Vector3.Lerp(
             img.rectTransform.localScale,
             targetScale,
@@ -72,7 +142,7 @@ public class PowerUpsVisibility : MonoBehaviour
             ? activeAlpha
             : inactiveAlpha;
 
-        // Interpolación de alpha
+        // Interpolaciï¿½n de alpha
         Color color = img.color;
 
         color.a = Mathf.Lerp(

@@ -1,53 +1,41 @@
 using UnityEngine;
-using System.Reflection;
-
-public class SpeedDecorator : PowerUpDecorator
+public class SpeedDecorator : PowerUpDecorator, IPlayerStatsDecorator
 {
     [SerializeField] private float multiplier = 1.5f;
 
-    private PlayerMovement playerMovement;
+    private PlayerStatsContext statsContext;
+    private IPlayerStats inner;
 
-    private float originalSpeed;
+    public IPlayerStats Inner => inner;
+    public float MoveSpeedMultiplier =>
+        (inner != null ? inner.MoveSpeedMultiplier : 1f) * multiplier;
+    public float DamageMultiplier => inner != null ? inner.DamageMultiplier : 1f;
+    public bool IsInvulnerable => inner != null && inner.IsInvulnerable;
 
-    private FieldInfo moveSpeedField;
+    private void Awake()
+    {
+        statsContext = GetComponentInParent<PlayerStatsContext>();
+        if (statsContext == null)
+        {
+            statsContext = gameObject.AddComponent<PlayerStatsContext>();
+        }
+    }
+
+    public void SetInner(IPlayerStats innerStats)
+    {
+        inner = innerStats;
+    }
 
     public override void Apply()
     {
-        playerMovement = GetComponentInParent<PlayerMovement>();
-
-        if(playerMovement == null)
-        {
-            Debug.LogError("No se encontró PlayerMovement");
-            return;
-        }
-
-        moveSpeedField = typeof(PlayerMovement)
-            .GetField("moveSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        if(moveSpeedField == null)
-        {
-            Debug.LogError("No se encontró moveSpeed");
-            return;
-        }
-
-        originalSpeed = (float)moveSpeedField.GetValue(playerMovement);
-
-        moveSpeedField.SetValue(
-            playerMovement,
-            originalSpeed * multiplier
-        );
+        statsContext.AddDecorator(this);
 
         Debug.Log("SPEED BOOST ACTIVADO");
     }
 
     public override void Remove()
     {
-        if(playerMovement == null || moveSpeedField == null)
-        {
-            return;
-        }
-
-        moveSpeedField.SetValue(playerMovement, originalSpeed);
+        statsContext.RemoveDecorator(this);
 
         Debug.Log("SPEED BOOST TERMINADO");
     }

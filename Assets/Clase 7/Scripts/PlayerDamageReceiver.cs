@@ -28,6 +28,7 @@ public class PlayerDamageReceiver : MonoBehaviour
     [Header("References")]
     [SerializeField] private Animator animator;
     [SerializeField] private HealthController healthController;
+    [SerializeField] private PlayerStatsContext statsContext;
 
     [Header("Hitboxes")]
     [SerializeField] private DirectionalHitbox[] hitboxes;
@@ -55,6 +56,11 @@ public class PlayerDamageReceiver : MonoBehaviour
         if (!healthController)
         {
             healthController = GetComponent<HealthController>();
+        }
+
+        if (!statsContext)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
         }
 
         damageFrontHash = Animator.StringToHash("DamageFront");
@@ -89,7 +95,19 @@ public class PlayerDamageReceiver : MonoBehaviour
             return;
         }
 
+        if (statsContext == null)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
+        }
+
         if (invulnerable)
+        {
+            return;
+        }
+
+        if (statsContext != null &&
+            statsContext.CurrentStats != null &&
+            statsContext.CurrentStats.IsInvulnerable)
         {
             return;
         }

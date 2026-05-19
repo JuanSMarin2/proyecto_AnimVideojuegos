@@ -42,6 +42,25 @@ public class HealthController : MonoBehaviour
     public bool IsDead => isDead;
     public bool IsDying => deathRoutineRunning;
 
+    public void AddMaxHealth(float amount, bool healToMax = true)
+    {
+        if (Mathf.Approximately(amount, 0f))
+        {
+            return;
+        }
+
+        maxHealth = Mathf.Max(1f, maxHealth + amount);
+
+        if (healToMax)
+        {
+            SetCurrentHealth(maxHealth);
+        }
+        else
+        {
+            SetCurrentHealth(currentHealth + amount);
+        }
+    }
+
     private void Awake()
     {
         if (!animator)

@@ -1,38 +1,39 @@
 using UnityEngine;
 
-public class BerserkDecorator : PowerUpDecorator
+public class BerserkDecorator : PowerUpDecorator, IPlayerStatsDecorator
 {
     [SerializeField] private float damageMultiplier = 1.5f;
 
-    private PlayerAttackSource[] attackSources;
-
-    private float[] originalDamages;
-
+    private PlayerStatsContext statsContext;
+    private IPlayerStats inner;
     private Renderer[] renderers;
+
+    public IPlayerStats Inner => inner;
+    public float MoveSpeedMultiplier => inner != null ? inner.MoveSpeedMultiplier : 1f;
+    public float DamageMultiplier =>
+        (inner != null ? inner.DamageMultiplier : 1f) * damageMultiplier;
+    public bool IsInvulnerable => inner != null && inner.IsInvulnerable;
 
     private void Awake()
     {
-        attackSources = GetComponentsInChildren<PlayerAttackSource>();
-
         renderers = GetComponentsInChildren<Renderer>();
+        statsContext = GetComponentInParent<PlayerStatsContext>();
+        if (statsContext == null)
+        {
+            statsContext = gameObject.AddComponent<PlayerStatsContext>();
+        }
+    }
 
-        originalDamages = new float[attackSources.Length];
+    public void SetInner(IPlayerStats innerStats)
+    {
+        inner = innerStats;
     }
 
     public override void Apply()
     {
         Debug.Log("BERSERK ACTIVADO");
 
-        for (int i = 0; i < attackSources.Length; i++)
-        {
-            PlayerAttackSource source = attackSources[i];
-
-            float currentDamage = source.GetDamage();
-
-            originalDamages[i] = currentDamage;
-
-            source.SetBaseDamage(currentDamage * damageMultiplier);
-        }
+        statsContext.AddDecorator(this);
 
         foreach(Renderer rend in renderers)
         {
@@ -47,10 +48,7 @@ public class BerserkDecorator : PowerUpDecorator
     {
         Debug.Log("BERSERK TERMINADO");
 
-        for (int i = 0; i < attackSources.Length; i++)
-        {
-            attackSources[i].SetBaseDamage(originalDamages[i]);
-        }
+        statsContext.RemoveDecorator(this);
 
         foreach(Renderer rend in renderers)
         {

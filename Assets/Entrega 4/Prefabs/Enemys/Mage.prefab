@@ -526,6 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   currentHealth: 40
+  isPlayer: 0
   animator: {fileID: 5447834692007937562}
   animatorLayerIndex: 0
   damageStateTag: Damage
@@ -581,7 +582,9 @@ MonoBehaviour:
   disableDelay: 5
   dropSpawnPoint: {fileID: 1941029504006230496}
   dropPrefabs:
-  - {fileID: 8263754676077406280, guid: 2fa4ae9ee2952e64da11f05c0f1d7cee, type: 3}
+  - {fileID: 8532223260401475594, guid: a8e247730e08aeb4a89f089291f5e325, type: 3}
+  - {fileID: 7078145308722122809, guid: a8b2786522ff90443826bb11419d4680, type: 3}
+  - {fileID: 8279790486820238059, guid: 5fa3ac6a4af1b83429b55805f1e2f63a, type: 3}
   healerPrefab: {fileID: 8263754676077406280, guid: 2fa4ae9ee2952e64da11f05c0f1d7cee, type: 3}
   dropChance: 0.5
   healerChance: 0.7

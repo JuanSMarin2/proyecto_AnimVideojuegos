@@ -1,32 +1,35 @@
 using UnityEngine;
-using System.Reflection;
-
-public class ShieldDecorator : PowerUpDecorator
+public class ShieldDecorator : PowerUpDecorator, IPlayerStatsDecorator
 {
-    private PlayerDamageReceiver damageReceiver;
-
-    private FieldInfo invulnerableField;
-
+    private PlayerStatsContext statsContext;
+    private IPlayerStats inner;
     private Renderer[] renderers;
+
+    public IPlayerStats Inner => inner;
+    public float MoveSpeedMultiplier => inner != null ? inner.MoveSpeedMultiplier : 1f;
+    public float DamageMultiplier => inner != null ? inner.DamageMultiplier : 1f;
+    public bool IsInvulnerable => true;
 
     private void Awake()
     {
-        damageReceiver = GetComponent<PlayerDamageReceiver>();
-
         renderers = GetComponentsInChildren<Renderer>();
+        statsContext = GetComponentInParent<PlayerStatsContext>();
+        if (statsContext == null)
+        {
+            statsContext = gameObject.AddComponent<PlayerStatsContext>();
+        }
+    }
 
-        invulnerableField = typeof(PlayerDamageReceiver)
-            .GetField("invulnerable", BindingFlags.NonPublic | BindingFlags.Instance);
+    public void SetInner(IPlayerStats innerStats)
+    {
+        inner = innerStats;
     }
 
     public override void Apply()
     {
         Debug.Log("ESCUDO ACTIVADO");
 
-        if (invulnerableField != null && damageReceiver != null)
-        {
-            invulnerableField.SetValue(damageReceiver, true);
-        }
+        statsContext.AddDecorator(this);
 
         foreach (Renderer rend in renderers)
         {
@@ -41,10 +44,7 @@ public class ShieldDecorator : PowerUpDecorator
     {
         Debug.Log("ESCUDO TERMINADO");
 
-        if (invulnerableField != null && damageReceiver != null)
-        {
-            invulnerableField.SetValue(damageReceiver, false);
-        }
+        statsContext.RemoveDecorator(this);
 
         foreach (Renderer rend in renderers)
         {

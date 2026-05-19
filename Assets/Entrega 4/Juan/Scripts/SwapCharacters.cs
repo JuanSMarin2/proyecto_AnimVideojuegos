@@ -7,9 +7,12 @@ public class SwapCharacters : MonoBehaviour
 [SerializeField] private GameObject weaponA;
 [SerializeField] private GameObject weaponB;
 [SerializeField] private GameObject characterB;
+[SerializeField] private HealthController healthA;
+[SerializeField] private HealthController healthB;
 
 private void Start()
 {
+    CacheHealthControllers();
     if (characterA.activeSelf)
     {
         weaponA.SetActive(true);
@@ -34,6 +37,11 @@ public void Update()
 
 public void Swap()
 {
+    if (IsActiveCharacterDying())
+    {
+        return;
+    }
+
     if (characterA.activeSelf)
     {
         weaponA.SetActive(false);
@@ -48,5 +56,35 @@ public void Swap()
         characterA.SetActive(true);
         characterB.SetActive(false);
     }
+}
+
+private void CacheHealthControllers()
+{
+    if (!healthA && characterA)
+    {
+        healthA = characterA.GetComponentInChildren<HealthController>(true);
+    }
+
+    if (!healthB && characterB)
+    {
+        healthB = characterB.GetComponentInChildren<HealthController>(true);
+    }
+}
+
+private bool IsActiveCharacterDying()
+{
+    CacheHealthControllers();
+
+    if (characterA && characterA.activeSelf)
+    {
+        return healthA && (healthA.IsDying || healthA.IsDead);
+    }
+
+    if (characterB && characterB.activeSelf)
+    {
+        return healthB && (healthB.IsDying || healthB.IsDead);
+    }
+
+    return false;
 }
 }

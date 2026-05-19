@@ -27,6 +27,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] private float playerAttack = 10f;
     [SerializeField] private float heavyDamageMultiplier = 2f;
     [SerializeField] private PlayerAttackSource[] initialAttackSources;
+    [SerializeField] private PlayerStatsContext statsContext;
 
     [SerializeField] private bool isLight;
 
@@ -56,7 +57,7 @@ public class AttackController : MonoBehaviour
     private int locomotionStateHash;
     private readonly List<PlayerAttackSource> attackSources = new List<PlayerAttackSource>();
 
-    public float PlayerAttack => playerAttack;
+    public float PlayerAttack => playerAttack * GetStatsDamageMultiplier();
     public bool IsLightAttack => isLight;
 
     public bool IsMovementLocked => lockMovementDuringAttack && isInAttackMode;
@@ -78,6 +79,11 @@ public class AttackController : MonoBehaviour
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
+        }
+
+        if (statsContext == null)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
         }
 
         ResolveMoveAction();
@@ -180,7 +186,7 @@ public class AttackController : MonoBehaviour
     public float GetAttackDamage()
     {
         float multiplier = isLight ? 1f : Mathf.Max(1f, heavyDamageMultiplier);
-        return playerAttack * multiplier;
+        return playerAttack * GetStatsDamageMultiplier() * multiplier;
     }
 
     public void SetAttackWindowActive(bool active)
@@ -208,10 +214,25 @@ public class AttackController : MonoBehaviour
                 continue;
             }
 
-            source.SetBaseDamage(playerAttack);
+            source.SetBaseDamage(playerAttack * GetStatsDamageMultiplier());
             source.SetHeavyMultiplier(heavyDamageMultiplier);
             source.SetHeavy(!isLight);
         }
+    }
+
+    private float GetStatsDamageMultiplier()
+    {
+        if (statsContext == null)
+        {
+            statsContext = GetComponentInParent<PlayerStatsContext>();
+        }
+
+        if (statsContext == null || statsContext.CurrentStats == null)
+        {
+            return 1f;
+        }
+
+        return Mathf.Max(0f, statsContext.CurrentStats.DamageMultiplier);
     }
 
     private void SetAttackSourcesActive(bool active)
