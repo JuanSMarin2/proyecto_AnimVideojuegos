@@ -12,8 +12,16 @@ public class PowerUpPickup : MonoBehaviour
         {
             Debug.Log("El jugador tocó el power up");
 
+            PlayerMovement targetMovement = FindActivePlayerMovement(other);
+
+            if (targetMovement == null)
+            {
+                Debug.LogError("No se encontró un PlayerMovement activo en el jugador");
+                return;
+            }
+
             PowerUpDecorator powerUp =
-                other.gameObject.AddComponent(
+                targetMovement.gameObject.AddComponent(
                     powerUpPrefab.GetType()
                 ) as PowerUpDecorator;
 
@@ -23,5 +31,21 @@ public class PowerUpPickup : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    private PlayerMovement FindActivePlayerMovement(Collider other)
+    {
+        PlayerMovement[] movements =
+            other.GetComponentsInChildren<PlayerMovement>(true);
+
+        foreach (PlayerMovement movement in movements)
+        {
+            if (movement.gameObject.activeInHierarchy)
+            {
+                return movement;
+            }
+        }
+
+        return null;
     }
 }

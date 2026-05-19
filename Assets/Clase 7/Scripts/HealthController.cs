@@ -254,8 +254,11 @@ public class HealthController : MonoBehaviour
 
         if (rootRigidbody)
         {
-            rootRigidbody.linearVelocity = Vector3.zero;
-            rootRigidbody.angularVelocity = Vector3.zero;
+            if (!rootRigidbody.isKinematic)
+            {
+                rootRigidbody.linearVelocity = Vector3.zero;
+                rootRigidbody.angularVelocity = Vector3.zero;
+            }
 
             if (setKinematicOnDeath)
             {
