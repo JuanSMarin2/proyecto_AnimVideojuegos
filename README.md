@@ -24,6 +24,7 @@
 ---
 
 ## Link del ejecutable: https://drive.google.com/file/d/1S_cVBYmlOGcmqAJKShEWnOym1ObK_RhE/view?usp=sharing
+### Link video: https://drive.google.com/file/d/1X-eUYYwJoLnhZVzpmZSPymguElPPC6EP/view?usp=sharing
 <img width="1575" height="881" alt="image" src="https://github.com/user-attachments/assets/a45d460f-917c-4cdc-be76-dd65a57c9042" />
 
 
